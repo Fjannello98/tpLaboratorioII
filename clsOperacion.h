@@ -49,6 +49,7 @@ class Operacion
     void Mostrar();
     void cargarEnArchivo();
     bool leerDeDisco(const int pos);
+    bool grabarEnDisco(const int pos);
     int  buscarPosEnDisco(const int idOperacion);
     int calculateGananciasAVendedor();
 };

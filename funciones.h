@@ -6,8 +6,22 @@ using namespace std;
 #include <cstdio>
 #include <cstring>
 
+#include "clsFecha.h"
+
+// funciones de cin
 void cargarCadena(char *pal, int tam);
+
+// getFecha de hoy
+
+Fecha getFechaDeHoy();
+
+// estilos
 void LINEA_EN_Y(int,int,int,int);
 void LINEA_EN_X(int,int,int,int);
+
+// buscar posicion
+
+int buscarPosOperacion(int);
+
 
 #endif // FUNCIONES_H_INCLUDED

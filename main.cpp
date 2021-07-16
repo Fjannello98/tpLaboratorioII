@@ -23,8 +23,8 @@ using namespace rlutil;
 #include "menuReportes.h"
 
 //TODO: Cambiar estructuras de decision Si o No por una funcion
-//TODO: Cambiar metodo buscarPosEnDisco de todas las clases
-//TODO: Dar estilos a todos los menus
+//TODO: Cambiar metodo buscarPosEnDisco de todas las clases a funciones cpp
+
 
 enum MENU_MAIN{
       OPCION_SALIR,

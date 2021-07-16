@@ -147,6 +147,19 @@ bool Operacion::leerDeDisco(const int pos){
         return leyo;
 }
 
+bool Operacion::grabarEnDisco(const int pos){
+    FILE *p;
+    p=fopen("Operaciones.dat","rb+");
+    if (p==NULL){
+            cout<<"No se pudo abrir el archivo";
+            return false;
+     }
+    fseek(p, pos*sizeof *this, 0);
+    bool escribio=fwrite(this, sizeof *this, 1, p);
+    fclose(p);
+    return escribio;
+}
+
 
 int Operacion::buscarPosEnDisco(const int idOperacion){
       FILE *p;

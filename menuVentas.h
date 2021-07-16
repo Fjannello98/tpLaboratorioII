@@ -2,9 +2,9 @@
 #define MENUVENTAS_H_INCLUDED
 
 
-
+int menuVentas();
 void listarOperaciones();
 int cantDeOperaciones();
-int menuVentas();
+void actualizarEstadoOperacion(int);
 
 #endif // MENUVENTAS_H_INCLUDED

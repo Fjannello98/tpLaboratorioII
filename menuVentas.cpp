@@ -19,6 +19,7 @@ enum MENU_VENTAS{
       OPCION_SALIR_MENUVENTAS,
       OPCION_CARGAR_VENTA,
       OPCION_LISTADO_VENTAS,
+      OPCION_ACTUALIZAR_ESTADO
 };
 
 
@@ -35,8 +36,10 @@ int menuVentas(){
       gotoxy(45,8);
       cout << "1. Cargar venta" << endl;
       gotoxy(45,9);
-      cout << "2. Ver listado de operaciones" << endl; //TODO: Crear una opción de actualizar estado de una venta
+      cout << "2. Ver listado de operaciones" << endl;
       gotoxy(45,10);
+      cout << "3. Chequear estado de una venta" <<endl;
+      gotoxy(45,11);
       cout << "0. Volver al menu anterior" << endl;
       gotoxy(50,19);
       cout << "SELECCIONE UNA OPCION: " << endl;
@@ -50,12 +53,30 @@ int menuVentas(){
                     cout<<"------------------INGRESE DATOS DE VENTA:  --------------------------"<<endl;
                     cout<<"------------------------------------------------------------------------" <<endl;
                     Operacion regOperacion;
-                    regOperacion.Cargar();
+                    regOperacion.Cargar(); // TODO: Dar ejemplo de patente validada y validar que no haya otra venta con esa patente.
                     break;
                    }
 
         case OPCION_LISTADO_VENTAS:
                   listarOperaciones();
+                   break;
+        case OPCION_ACTUALIZAR_ESTADO:
+                  {
+                   int cant=cantDeOperaciones();
+                   if (cantDeOperaciones==0){
+                    cout<<"No hay operaciones disponibles";
+                    break;
+                   }
+                   int cod,pos;
+                   cout<<"Ingrese el codigo ID de la venta: ";
+                   cin>>cod;
+                   pos = buscarPosOperacion(cod);
+                   if (pos==-1){
+                    cout<<"La operación con ese ID no existe";
+                    break;
+                   }
+                   actualizarEstadoOperacion(pos);
+                  }
                    break;
 
         case OPCION_SALIR_MENUVENTAS:
@@ -99,6 +120,41 @@ int cantDeOperaciones(){
       fseek(p,0,2);
       cant=ftell(p)/(sizeof (Operacion));
       return cant;
+}
+
+void actualizarEstadoOperacion(int pos){
+   Operacion regOperacion;
+   regOperacion.leerDeDisco(pos);
+   cout<<"La venta se encuentra en estado  ";
+   if (regOperacion.getVentaCompleta()==true){
+    cout<< "cerrado, iniciada el: ";
+    regOperacion.getFechaDeInicio().Mostrar();
+    cout<< "Fue cerrada el: ";
+    regOperacion.getFechaDeFin().Mostrar();
+    return;
+   }
+   cout<<" abierto, iniciada  el ";
+   regOperacion.getFechaDeInicio().Mostrar();
+   cout<<endl<<"¿Desea cerrar la venta en el dia de hoy? 1-Si  2- No: ";
+   int rta;
+   cin >> rta;
+   while (rta!=1 && rta !=2){
+     cout<< endl << "Error! Ingrese una rta valida";
+   }
+   if (rta==2) {
+     cout<<endl<<"Operacion cancelada";
+     return;
+   }
+   regOperacion.setVentaCompleta(true);
+   regOperacion.setFechadeFin(getFechaDeHoy());
+   regOperacion.grabarEnDisco(pos);
+   Vehiculo regVehiculo;
+   int stock,posVehiculo = regVehiculo.buscarPosEnDisco(regOperacion.getIdVehiculo());
+   regVehiculo.leerDeDisco(posVehiculo);
+   stock = regVehiculo.getStock()-1;
+   regVehiculo.setStock(stock);
+   regVehiculo.grabarEnDisco(posVehiculo);
+   cout<<endl<<"Operacion actualizada";
 }
 
 #endif // MENUVENTAS_CPP_INCLUDED

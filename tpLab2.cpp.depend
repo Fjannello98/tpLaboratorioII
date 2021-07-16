@@ -216,3 +216,223 @@
 	"funciones.h"
 	"rlutil.h"
 
+1626401421 source:c:\users\facundo\desktop\repositorio personal -tp final\clscliente.cpp
+	<iostream>
+	<cstdlib>
+	<cstdio>
+	<cstring>
+	"clsCliente.h"
+	"validations.h"
+	"clsOperacion.h"
+
+1626401421 c:\users\facundo\desktop\repositorio personal -tp final\clscliente.h
+	"clsPersona.h"
+
+1626401421 c:\users\facundo\desktop\repositorio personal -tp final\clspersona.h
+	"clsFecha.h"
+
+1626401421 c:\users\facundo\desktop\repositorio personal -tp final\clsfecha.h
+
+1626401421 c:\users\facundo\desktop\repositorio personal -tp final\validations.h
+	"clsFecha.h"
+
+1626403125 c:\users\facundo\desktop\repositorio personal -tp final\clsoperacion.h
+	"clsFecha.h"
+	"clsPersona.h"
+	"clsVendedor.h"
+	"clsCliente.h"
+	"clsVehiculo.h"
+
+1626401421 c:\users\facundo\desktop\repositorio personal -tp final\clsvendedor.h
+	"clsPersona.h"
+
+1626401421 c:\users\facundo\desktop\repositorio personal -tp final\clsvehiculo.h
+
+1626401421 source:c:\users\facundo\desktop\repositorio personal -tp final\clsfecha.cpp
+	<iostream>
+	<cstdlib>
+	<cstdio>
+	<cstring>
+	"validations.h"
+	"clsFecha.h"
+
+1626403173 source:c:\users\facundo\desktop\repositorio personal -tp final\clsoperacion.cpp
+	<iostream>
+	<cstdlib>
+	<cstdio>
+	<cstring>
+	"clsOperacion.h"
+	"clsFecha.h"
+	"validations.h"
+	"funciones.h"
+	"menuVehiculos.h"
+
+1626403775 c:\users\facundo\desktop\repositorio personal -tp final\funciones.h
+	<iostream>
+	<cstdlib>
+	<cstdio>
+	<cstring>
+	"clsFecha.h"
+
+1626401421 c:\users\facundo\desktop\repositorio personal -tp final\menuvehiculos.h
+	"clsFecha.h"
+	"clsPersona.h"
+	"clsVendedor.h"
+	"clsCliente.h"
+	"clsVehiculo.h"
+	"clsOperacion.h"
+
+1626401421 source:c:\users\facundo\desktop\repositorio personal -tp final\clspersona.cpp
+	<iostream>
+	<cstdlib>
+	<cstdio>
+	<cstring>
+	<ctime>
+	"clsPersona.h"
+	"funciones.h"
+	"validations.h"
+
+1626401421 source:c:\users\facundo\desktop\repositorio personal -tp final\clsvehiculo.cpp
+	<iostream>
+	<cstdlib>
+	<cstdio>
+	<cstring>
+	"clsVehiculo.h"
+	"clsOperacion.h"
+	"funciones.h"
+
+1626401421 source:c:\users\facundo\desktop\repositorio personal -tp final\clsvendedor.cpp
+	<iostream>
+	<cstdlib>
+	<cstdio>
+	<cstring>
+	"clsVendedor.h"
+	"clsOperacion.h"
+	"validations.h"
+
+1626403849 source:c:\users\facundo\desktop\repositorio personal -tp final\funciones.cpp
+	<ctime>
+	"funciones.h"
+	"rlutil.h"
+	"clsOperacion.h"
+	"clsFecha.h"
+
+1626401421 c:\users\facundo\desktop\repositorio personal -tp final\rlutil.h
+	<iostream>
+	<string>
+	<cstdio>
+	<stdio.h>
+	<string.h>
+	<windows.h>
+	<conio.h>
+	<termios.h>
+	<unistd.h>
+	<sys/ioctl.h>
+	<sys/types.h>
+	<sys/time.h>
+
+1626401421 source:c:\users\facundo\desktop\repositorio personal -tp final\menuclientes.cpp
+	<iostream>
+	<cstdlib>
+	<cstdio>
+	<cstring>
+	"rlutil.h"
+	"funciones.h"
+	"menuClientes.h"
+	"validations.h"
+
+1626401421 c:\users\facundo\desktop\repositorio personal -tp final\menuclientes.h
+	"clsFecha.h"
+	"clsPersona.h"
+	"clsVendedor.h"
+	"clsCliente.h"
+	"clsVehiculo.h"
+	"clsOperacion.h"
+
+1626401421 source:c:\users\facundo\desktop\repositorio personal -tp final\menureportes.cpp
+	<iostream>
+	<cstdlib>
+	<cstdio>
+	<cstring>
+	<iomanip>
+	"rlutil.h"
+	"funciones.h"
+	"clsOperacion.h"
+	"menuVendedores.h"
+	"menuVehiculos.h"
+	"menuReportes.h"
+	"validations.h"
+
+1626401421 c:\users\facundo\desktop\repositorio personal -tp final\menuvendedores.h
+	"clsFecha.h"
+	"clsPersona.h"
+	"clsVendedor.h"
+	"clsCliente.h"
+	"clsVehiculo.h"
+	"clsOperacion.h"
+
+1626401421 c:\users\facundo\desktop\repositorio personal -tp final\menureportes.h
+
+1626401421 source:c:\users\facundo\desktop\repositorio personal -tp final\menuvehiculos.cpp
+	<iostream>
+	<cstdlib>
+	<cstdio>
+	<cstring>
+	"rlutil.h"
+	"funciones.h"
+	"menuVehiculos.h"
+
+1626401421 source:c:\users\facundo\desktop\repositorio personal -tp final\menuvendedores.cpp
+	<iostream>
+	<cstdlib>
+	<cstdio>
+	<cstring>
+	"rlutil.h"
+	"funciones.h"
+	"menuVendedores.h"
+
+1626401421 source:c:\users\facundo\desktop\repositorio personal -tp final\menuventas.cpp
+	<iostream>
+	<cstdlib>
+	<cstdio>
+	<cstring>
+	"rlutil.h"
+	"funciones.h"
+	"clsFecha.h"
+	"clsOperacion.h"
+	"menuVentas.h"
+
+1626401970 c:\users\facundo\desktop\repositorio personal -tp final\menuventas.h
+
+1626401421 source:c:\users\facundo\desktop\repositorio personal -tp final\validations.cpp
+	<iostream>
+	<cstdlib>
+	<cstdio>
+	<cstring>
+	<ctime>
+	"clsVendedor.h"
+	"clsVehiculo.h"
+	"clsCliente.h"
+	"clsOperacion.h"
+	"validations.h"
+	"rlutil.h"
+
+1626401485 source:c:\users\facundo\desktop\repositorio personal -tp final\main.cpp
+	<iostream>
+	<cstdlib>
+	<cstdio>
+	<cstring>
+	"rlutil.h"
+	"funciones.h"
+	"clsFecha.h"
+	"clsPersona.h"
+	"clsVendedor.h"
+	"clsCliente.h"
+	"clsVehiculo.h"
+	"clsOperacion.h"
+	"menuVentas.h"
+	"menuClientes.h"
+	"menuVendedores.h"
+	"menuVehiculos.h"
+	"menuReportes.h"
+
