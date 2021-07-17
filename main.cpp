@@ -22,10 +22,9 @@ using namespace rlutil;
 #include "menuVehiculos.h"
 #include "menuReportes.h"
 
-//TODO: Cambiar estructuras de decision Si o No por una funcion
 //TODO: En la funcion eliminar, impedir que elimine si el vendedor/comprador tiene ventas asociadas
 //TODO: Validaciones de CIN
-
+//TODO: Agregar una variable booleana a todos los leer de disco o grabar en disco
 
 enum MENU_MAIN{
       OPCION_SALIR,

@@ -177,7 +177,7 @@ int validateDniCliente(int dni){
 }
 
 
-// VALIDACIONES CLASE Vendedor
+// VALIDACIONES CLASE VENDEDOR
 
 
 int validateDniVendedor(int dni){
@@ -225,6 +225,50 @@ float validateComisionPorcentaje(float comisionPorcentaje){
    }
    return aux;
 }
+
+
+// VALIDACIONES DE LA CLASE VEHICULO
+
+int validateIdVehiculo(int id){
+    int aux=id;
+    int pos=buscarPosVehiculo(aux);
+    while (pos!=-1){
+         setBackgroundColor(RED);
+         cout<<endl<<"Error!";
+         setBackgroundColor(BLACK);
+         cout<<"Ya hay un vehiculo registrado con ese ID, ingrese un ID que no haya sido registrado: ";
+         cin>>aux;
+         pos=buscarPosVehiculo(aux);
+    }
+    return aux;
+}
+
+int validateAnioDelModelo(int anio){
+   int aux = anio;
+   while(aux>getFechaDeHoy().getAnio()){
+        setBackgroundColor(RED);
+        cout<<endl<<"Error!";
+        setBackgroundColor(BLACK);
+        cout<<endl<<"Un auto del futuro! Ingrese un anio valido: ";
+        cin >> aux;
+   }
+   return aux;
+}
+
+int validateCantDePuertas(int cantDePuertas){
+   int aux = cantDePuertas;
+   while (aux != 3 && aux != 5){
+        setBackgroundColor(RED);
+        cout<<endl<<"Error!";
+        setBackgroundColor(BLACK);
+        cout<<endl<<"Los autos que vendemos son con 3 o 5 puertas únicamente. Ingrese un número válido: ";
+        cin >> aux;
+   }
+   return aux;
+}
+
+
+
 
 // VALIDACIONES CLASE OPERACION
 

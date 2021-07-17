@@ -14,6 +14,7 @@ using namespace rlutil;
 #include "clsFecha.h"
 #include "clsOperacion.h"
 #include "menuVentas.h"
+#include "menuVehiculos.h"
 
 enum MENU_VENTAS{
       OPCION_SALIR_MENUVENTAS,
@@ -54,7 +55,7 @@ int menuVentas(){
                     cout<<"------------------------------------------------------------------------" <<endl;
                     Operacion regOperacion;
                     regOperacion.Cargar();
-                    break;
+                     break;
                    }
 
         case OPCION_LISTADO_VENTAS:
@@ -134,12 +135,7 @@ void actualizarEstadoOperacion(int pos){
    regOperacion.setVentaCompleta(true);
    regOperacion.setFechadeFin(getFechaDeHoy());
    regOperacion.grabarEnDisco(pos);
-   Vehiculo regVehiculo;
-   int stock,posVehiculo = buscarPosVehiculo(regOperacion.getIdVehiculo());
-   regVehiculo.leerDeDisco(posVehiculo);
-   stock = regVehiculo.getStock()-1;
-   regVehiculo.setStock(stock);
-   regVehiculo.grabarEnDisco(posVehiculo);
+   agregarStockVehiculo(regOperacion.getIdVehiculo(),-1);
    cout<<endl<<"Operacion actualizada";
 }
 

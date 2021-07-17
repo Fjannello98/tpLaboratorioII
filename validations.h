@@ -27,6 +27,11 @@ int validateDniVendedor(int);
 float validateSueldo(float);
 float validateComisionPorcentaje(float);
 
+// Validaciones en clase Vehiculo
+
+int validateIdVehiculo(int);
+int validateAnioDelModelo(int);
+int validateCantDePuertas(int);
 
 // Validaciones en clase Operacion
 

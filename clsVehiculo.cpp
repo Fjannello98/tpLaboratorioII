@@ -10,6 +10,7 @@ using namespace std;
 #include "clsVehiculo.h"
 #include "clsOperacion.h"
 #include "funciones.h"
+#include "validations.h"
 
 
 Vehiculo::Vehiculo(){
@@ -32,12 +33,11 @@ int Vehiculo::getAnio(){return anio;}
 int Vehiculo::getStock(){return stock;}
 bool Vehiculo::getEstado(){return estado;}
 
-//TODO: Agregar validacion a la cantidad de puertas, año del modelo, Id del vehiculo
-
 
 void Vehiculo::Cargar(){
     cout <<"Ingrese el ID del vehiculo: ";
-    cin >> idVehiculo;"\n";
+    cin >> idVehiculo;
+    idVehiculo=validateIdVehiculo(idVehiculo);"\n";
     cout<<"Ingrese el nombre del modelo: ";
     cargarCadena(modelo,20);"\n";
     cout<<"Ingrese la marca: ";
@@ -45,9 +45,11 @@ void Vehiculo::Cargar(){
     cout<<"Ingrese el color : ";
     cin >> color;"\n";
     cout<<"Ingrese el anio del modelo: ";
-    cin >> anio;"\n";
+    cin >> anio;
+    anio = validateAnioDelModelo(anio);"\n";
     cout<<"Ingrese la cantidad de puertas del modelo: ";
-    cin >> cantPuertas;"\n";
+    cin >> cantPuertas;
+    cantPuertas=validateCantDePuertas(cantPuertas);"\n";
     cout<<"Ingrese el stock: ";
     cin >> stock;"\n";
     if (stock>0) this->setEstado(true);

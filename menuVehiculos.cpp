@@ -195,37 +195,23 @@ void eliminarVehiculo(int idVehiculo){
 
 }
 
-void agregarStockVehiculo(int idVehiculo,int stock){ //TODO: Arreglar esta funcion, no hace falta el vector
-      int tam = cantDeVehiculos(),stockActual,aux=stock;
-      Vehiculo regVehiculo,*vecVehiculo;
-      vecVehiculo= new Vehiculo[tam];
+void agregarStockVehiculo(int idVehiculo,int stock){
+      int stockActual,aux=stock;
+      Vehiculo regVehiculo;
       int pos=buscarPosVehiculo(idVehiculo);
       if(pos==-1){
             cout<<endl<<"El vehiculo no existe en el archivo.";
-            delete vecVehiculo;
             return;
       }
-      FILE *p;
-      p=fopen("Vehiculos.dat","rb+");
-      if (p==NULL){
-            cout<<"No se pudo abrir el archivo";
-            delete vecVehiculo;
-            return;
-      }
-      fread(vecVehiculo,sizeof (Vehiculo),tam,p);
-      stockActual=vecVehiculo[pos].getStock();
+      regVehiculo.leerDeDisco(pos);
+      stockActual=regVehiculo.getStock();
       aux+=stockActual;
-      if(aux>0 && vecVehiculo[pos].getEstado()==false) vecVehiculo[pos].setEstado(true);
-      vecVehiculo[pos].setStock(aux);
-      cout<<"Stock actualizado. Stock actual de " << vecVehiculo[pos].getMarca() << " "<<vecVehiculo[pos].getModelo()<<": "<<aux;
-      fseek(p,0,0);
-      fwrite(vecVehiculo,sizeof (Vehiculo),tam,p);
-      fclose(p);
-      delete vecVehiculo;
+      if(aux>0 && regVehiculo.getEstado()==false) regVehiculo.setEstado(true);
+      regVehiculo.setStock(aux);
+      cout<<"Stock actualizado. Stock actual de " << regVehiculo.getMarca() << " "<<regVehiculo.getModelo()<<": "<<aux;
+      regVehiculo.grabarEnDisco(pos);
       return;
 }
-
-
 
 
 #endif // MENUVEHICULOS_CPP_INCLUDED
