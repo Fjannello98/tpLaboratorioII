@@ -59,20 +59,6 @@ void Cliente::cargarEnArchivo(){
      return;
 }
 
-int Cliente::buscarPosEnDisco(const int dni){
-      FILE *p;
-      p=fopen("Clientes.dat","rb");
-      if (p==NULL) return -1;
-      int c=0,pos=-1;
-      while(fread(this,sizeof (Cliente),1,p)==1){
-         if(this->dni==dni){
-                pos=c;
-         }
-          c++;
-      }
-      fclose(p);
-      return pos;
-}
 
 bool Cliente::leerDeDisco(const int pos){
         FILE *p;

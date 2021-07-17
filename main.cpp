@@ -23,7 +23,7 @@ using namespace rlutil;
 #include "menuReportes.h"
 
 //TODO: Cambiar estructuras de decision Si o No por una funcion
-//TODO: Cambiar metodo buscarPosEnDisco de todas las clases a funciones cpp
+//TODO: En la funcion eliminar, impedir que elimine si el vendedor/comprador tiene ventas asociadas
 
 
 enum MENU_MAIN{

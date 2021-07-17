@@ -13,6 +13,7 @@ using namespace std;
 #include "clsCliente.h"
 #include "clsOperacion.h"
 #include "validations.h"
+#include "funciones.h"
 #include "rlutil.h"
 
 using namespace rlutil;
@@ -163,15 +164,14 @@ int validateDniCliente(int dni){
          cout<<"Ingrese un Dni de al menos 8 digitos: ";
          cin>>aux;
     }
-    Cliente regCliente;
-    int pos=regCliente.buscarPosEnDisco(aux);
+    int pos=buscarPosCliente(aux);
     while (pos!=-1){
          setBackgroundColor(RED);
          cout<<endl<<"Error!";
          setBackgroundColor(BLACK);
          cout<<"Ya hay un cliente registrado con ese DNI, ingrese un DNI que no haya sido registrado: ";
          cin>>aux;
-         pos=regCliente.buscarPosEnDisco(aux);
+         pos=buscarPosCliente(aux);
     }
     return aux;
 }
@@ -189,15 +189,14 @@ int validateDniVendedor(int dni){
          cout<<"Ingrese un Dni de al menos 8 digitos: ";
          cin>>aux;
     }
-    Vendedor regVendedor;
-    int pos=regVendedor.buscarPosEnDisco(aux);
+    int pos=buscarPosVendedor(aux);
     while (pos!=-1){
          setBackgroundColor(RED);
          cout<<endl<<"Error!";
          setBackgroundColor(BLACK);
          cout<<"Ya hay un vendedor registrado con ese DNI, ingrese un DNI que no haya sido registrado: ";
          cin>>aux;
-         pos=regVendedor.buscarPosEnDisco(aux);
+         pos=buscarPosVendedor(aux);
     }
     return aux;
 }
@@ -308,7 +307,7 @@ Fecha validateFechaDeFin(Fecha fechaDeFin,Fecha fechaDeInicio){
 
 int validateVehiculoExiste(int idVehiculo){
     Vehiculo regVehiculo;
-    int pos=regVehiculo.buscarPosEnDisco(idVehiculo);
+    int pos=buscarPosVehiculo(idVehiculo);
     if (pos==-1){
             cout<<endl<<endl<<"El vehiculo no existe.";
             setBackgroundColor(LIGHTGREEN);
@@ -324,7 +323,7 @@ int validateVehiculoExiste(int idVehiculo){
 
 int validateVehiculoStock(int idVehiculo){
     Vehiculo regVehiculo;
-    int pos=regVehiculo.buscarPosEnDisco(idVehiculo);
+    int pos=buscarPosVehiculo(idVehiculo);
     regVehiculo.leerDeDisco(pos);
     if(regVehiculo.getEstado()==false){
          cout<<endl<<endl<<"El vehiculo no tiene stock.";
@@ -336,7 +335,7 @@ int validateVehiculoStock(int idVehiculo){
 
 int validateClienteExiste(int dniCliente){
     Cliente regCliente;
-    int pos=regCliente.buscarPosEnDisco(dniCliente);
+    int pos=buscarPosCliente(dniCliente);
     if (pos==-1){
             cout<<endl<<endl<<"El cliente no existe.";
             setBackgroundColor(LIGHTGREEN);
@@ -351,7 +350,7 @@ int validateClienteExiste(int dniCliente){
 
 int validateVendedorExiste(int dniVendedor){
     Vendedor regVendedor;
-    int pos=regVendedor.buscarPosEnDisco(dniVendedor);
+    int pos=buscarPosVendedor(dniVendedor);
     if (pos==-1){
             cout<<endl<<endl<<"El vendedor no existe.";
             setBackgroundColor(LIGHTGREEN);

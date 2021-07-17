@@ -1,12 +1,13 @@
 #ifndef FUNCIONES_CPP_INCLUDED
 #define FUNCIONES_CPP_INCLUDED
 #include <ctime>
+
+
 #include "funciones.h"
 #include "rlutil.h"
 using namespace rlutil;
-
 #include "clsOperacion.h"
-#include "clsFecha.h"
+
 
 void cargarCadena(char *pal, int tam){
   int i;
@@ -32,7 +33,7 @@ Fecha getFechaDeHoy(){
 }
 
 
-void LINEA_EN_Y(int yInicial, int yFinal, int x, int color){
+void LINEA_EN_Y(const int yInicial,const int yFinal, const int x,const int color){
    void gotoxy(int x,int y);
    for (int i=yInicial;i<yFinal;i++){
          gotoxy(x,i);
@@ -41,7 +42,7 @@ void LINEA_EN_Y(int yInicial, int yFinal, int x, int color){
    }
    setBackgroundColor(0);
 }
-void LINEA_EN_X(int xInicial, int xFinal, int y,int color){
+void LINEA_EN_X(const int xInicial,const int xFinal,const int y,const int color){
    void gotoxy(int x,int y);
    for (int i=xInicial;i<xFinal;i++){
          gotoxy(i,y);
@@ -54,7 +55,7 @@ void LINEA_EN_X(int xInicial, int xFinal, int y,int color){
 
 // Buscar Posicion
 
-int buscarPosOperacion(int cod){
+int buscarPosOperacion(const int cod){
    FILE *p;
    Operacion regOperacion;
    p=fopen("Operaciones.dat","rb");
@@ -73,4 +74,57 @@ int buscarPosOperacion(int cod){
    return pos;
 }
 
+int buscarPosCliente(const int dni){
+   FILE *p;
+   Cliente regCliente;
+   p=fopen("Clientes.dat","rb");
+   if (p==NULL){
+    return -1;
+   }
+   int pos=-1,c=0;
+   while(fread(&regCliente,sizeof (Cliente),1,p)==1){
+     if (regCliente.getDni()== dni){
+        pos=c;
+     }
+     c++;
+   }
+   fclose(p);
+   return pos;
+}
+
+int buscarPosVendedor(const int dni){
+   FILE *p;
+   Vendedor regVendedor;
+   p=fopen("Vendedores.dat","rb");
+   if (p==NULL){
+    return -1;
+   }
+   int pos=-1,c=0;
+   while(fread(&regVendedor,sizeof (Vendedor),1,p)==1){
+     if (regVendedor.getDni()== dni){
+        pos=c;
+     }
+     c++;
+   }
+   fclose(p);
+   return pos;
+}
+
+int buscarPosVehiculo(const int id){
+   FILE *p;
+   Vehiculo regVehiculo;
+   p=fopen("Vehiculos.dat","rb");
+   if (p==NULL){
+    return -1;
+   }
+   int pos=-1,c=0;
+   while(fread(&regVehiculo,sizeof (Vehiculo),1,p)==1){
+     if (regVehiculo.getIdVehiculo()== id){
+        pos=c;
+     }
+     c++;
+   }
+   fclose(p);
+   return pos;
+}
 #endif // FUNCIONES_CPP_INCLUDED

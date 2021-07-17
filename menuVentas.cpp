@@ -149,7 +149,7 @@ void actualizarEstadoOperacion(int pos){
    regOperacion.setFechadeFin(getFechaDeHoy());
    regOperacion.grabarEnDisco(pos);
    Vehiculo regVehiculo;
-   int stock,posVehiculo = regVehiculo.buscarPosEnDisco(regOperacion.getIdVehiculo());
+   int stock,posVehiculo = buscarPosVehiculo(regOperacion.getIdVehiculo());
    regVehiculo.leerDeDisco(posVehiculo);
    stock = regVehiculo.getStock()-1;
    regVehiculo.setStock(stock);

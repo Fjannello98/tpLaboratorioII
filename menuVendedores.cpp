@@ -93,11 +93,10 @@ int menuVendedores(){
                      cout<<"------------------PAPELERA DE RECICLAJE---------------------------------"<<endl;
                     cout<<"------------------------------------------------------------------------" <<endl;
                      int dni,pos;
-                     Vendedor regVendedor;
                      cout<< "Ingrese el dni del vendedor: ";
                      cin>>dni;
                      cout<<endl;
-                     pos=regVendedor.buscarPosEnDisco(dni);
+                     pos=buscarPosVendedor(dni);
                      if (pos==-1){
                          cout<<"No se ha encontrado un vendedor con ese DNI"<<endl;
                          break;
@@ -154,7 +153,7 @@ void buscarVendedor(){
      cout<< "Ingrese el dni del vendedor: ";
      cin>>dni;
      cout<<endl;
-     pos=regVendedor.buscarPosEnDisco(dni);
+     pos=buscarPosVendedor(dni);
      if (pos==-1){
          cout<<"No se ha encontrado un vendedor con ese DNI"<<endl;
          return;
@@ -217,9 +216,10 @@ void eliminarVendedor(int dni){
      int tam = cantDeVendedores(),pos;
      Vendedor regVendedor,*vecVendedor;
      vecVendedor= new Vendedor[tam];
-     pos=regVendedor.buscarPosEnDisco(dni);
+     pos=buscarPosVendedor(dni);
      if (pos==-1){
         cout<<"El vendedor no existe."<<endl;
+        delete vecVendedor;
         return;
      }
      FILE *p;
@@ -283,7 +283,11 @@ void actualizarSueldoVendedor(int dni){
      int pos;
      float porcentajeAumento,nuevoSueldo;
      Vendedor regVendedor;
-     pos=regVendedor.buscarPosEnDisco(dni);
+     pos=buscarPosVendedor(dni);
+     if (pos==-1){
+        cout<<"No existe vendedor con ese dni.";
+        return;
+     }
      bool leyo = regVendedor.leerDeDisco(pos);
      if (leyo == false) return;
      cout<<"\n\n"<<"El/la vendedor/a "<< regVendedor.getNombre() << regVendedor.getApellido() << " actualmente gana $"<<regVendedor.getSueldoBruto();

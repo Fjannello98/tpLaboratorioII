@@ -61,25 +61,6 @@ void Vendedor::cargarEnArchivo(){
 }
 
 
-int Vendedor::buscarPosEnDisco(const int dni){
-      FILE *p;
-      p=fopen("Vendedores.dat","rb");
-      if (p==NULL){
-                cout<<"No se pudo abrir el archivo";
-                return -1;
-      }
-      int c=0,pos=-1;
-      while(fread(this,sizeof (Vendedor),1,p)==1){
-         if(this->dni==dni){
-                pos=c;
-         }
-          c++;
-      }
-      fclose(p);
-      return pos;
-}
-
-
 bool Vendedor::leerDeDisco(const int pos){
     FILE *p;
     p=fopen("Vendedores.dat","rb");

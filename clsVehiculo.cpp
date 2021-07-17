@@ -77,23 +77,6 @@ void Vehiculo::cargarEnArchivo(){
      return;
 }
 
-int Vehiculo::buscarPosEnDisco(const int idVehiculo){
-      FILE *p;
-      p=fopen("Vehiculos.dat","rb");
-      if (p==NULL){
-                cout<<"No se pudo abrir el archivo";
-                return -1;
-      }
-      int c=0,pos=-1;
-      while(fread(this,sizeof (Vehiculo),1,p)==1){
-         if(this->idVehiculo==idVehiculo){
-                pos=c;
-         }
-          c++;
-      }
-      fclose(p);
-      return pos;
-}
 
 bool Vehiculo::leerDeDisco(const int pos){
         FILE *p;

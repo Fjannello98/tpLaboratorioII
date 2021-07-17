@@ -127,7 +127,7 @@ void buscarVehiculo(){
      cout<< "Ingrese el ID del vehiculo: ";
      cin>>idVehiculo;
      cout<<endl;
-     pos=regVehiculo.buscarPosEnDisco(idVehiculo);
+     pos=buscarPosVehiculo(idVehiculo);
      if (pos==-1){
          cout<<"No se ha encontrado un vehiculo con ese ID"<<endl;
          return;
@@ -146,9 +146,10 @@ void eliminarVehiculo(int idVehiculo){
      int tam = cantDeVehiculos(),pos;
      Vehiculo regVehiculo,*vecVehiculo;
      vecVehiculo= new Vehiculo[tam];
-     pos=regVehiculo.buscarPosEnDisco(idVehiculo);
+     pos=buscarPosVehiculo(idVehiculo);
      if (pos==-1){
         cout<<"El vehiculo no existe."<<endl;
+        delete vecVehiculo;
         return;
      }
      FILE *p;
@@ -194,11 +195,11 @@ void eliminarVehiculo(int idVehiculo){
 
 }
 
-void agregarStockVehiculo(int idVehiculo,int stock){
+void agregarStockVehiculo(int idVehiculo,int stock){ //TODO: Arreglar esta funcion, no hace falta el vector
       int tam = cantDeVehiculos(),stockActual,aux=stock;
       Vehiculo regVehiculo,*vecVehiculo;
       vecVehiculo= new Vehiculo[tam];
-      int pos=regVehiculo.buscarPosEnDisco(idVehiculo);
+      int pos=buscarPosVehiculo(idVehiculo);
       if(pos==-1){
             cout<<endl<<"El vehiculo no existe en el archivo.";
             delete vecVehiculo;

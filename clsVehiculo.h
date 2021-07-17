@@ -36,7 +36,6 @@ class Vehiculo{
         void Cargar();
         void Mostrar();
         void cargarEnArchivo();
-        int buscarPosEnDisco(const int idVehiculo);
         bool leerDeDisco(const int pos);
         bool grabarEnDisco(const int pos);
         int calculateCantVendidos();

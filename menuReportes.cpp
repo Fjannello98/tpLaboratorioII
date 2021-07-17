@@ -148,14 +148,14 @@ void mostrarVentasPorMes(int mes,int anio){
         if (regOperacion.getFechaDeFin().getAnio()==anio && regOperacion.getFechaDeFin().getMes() == mes){
            cout<<setw(5)<<regOperacion.getIdOperacion();
            int pos;
-           pos=regCliente.buscarPosEnDisco(regOperacion.getDniCliente());
+           pos=buscarPosCliente(regOperacion.getDniCliente());
            regCliente.leerDeDisco(pos);
            cout<<setw(31)<<regCliente.getApellido();
-           pos=regVendedor.buscarPosEnDisco(regOperacion.getDniVendedor());
+           pos=buscarPosVendedor(regOperacion.getDniVendedor());
            regVendedor.leerDeDisco(pos);
            cout<<setw(31)<<regVendedor.getApellido();
            cout<<setw(10)<<"$"<<regOperacion.getMonto();
-           pos=regVehiculo.buscarPosEnDisco(regOperacion.getIdVehiculo());
+           pos=buscarPosVehiculo(regOperacion.getIdVehiculo());
            regVehiculo.leerDeDisco(pos);
            cout<<setw(15)<<regVehiculo.getMarca();
            cout<<setw(20)<<regVehiculo.getModelo();
@@ -298,7 +298,7 @@ void mostrarEstadisticaCreditoEdad(){
       return;
     }
     while (fread(&regOperacion,sizeof (Operacion),1,p)==1){
-        int pos=regCliente.buscarPosEnDisco(regOperacion.getDniCliente());
+        int pos=buscarPosCliente(regOperacion.getDniCliente());
         regCliente.leerDeDisco(pos);
         if(regCliente.getPidioCredito()==true){
             cantConCredito++;

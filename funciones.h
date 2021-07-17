@@ -9,19 +9,22 @@ using namespace std;
 #include "clsFecha.h"
 
 // funciones de cin
-void cargarCadena(char *pal, int tam);
+void cargarCadena(char *pal,int tam);
 
 // getFecha de hoy
 
 Fecha getFechaDeHoy();
 
 // estilos
-void LINEA_EN_Y(int,int,int,int);
-void LINEA_EN_X(int,int,int,int);
+void LINEA_EN_Y(const int,const int,const int,const int);
+void LINEA_EN_X(const int,const int,const int,const int);
 
 // buscar posicion
 
-int buscarPosOperacion(int);
+int buscarPosOperacion(const int);
+int buscarPosCliente(const int);
+int buscarPosVendedor(const int);
+int buscarPosVehiculo(const int);
 
 
 #endif // FUNCIONES_H_INCLUDED

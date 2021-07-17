@@ -113,18 +113,18 @@ void Operacion::Mostrar(){
     cout<<endl<<"ID de la operacion: "<< idOperacion;
     cout<<endl<<"Vehículo: ";
     Vehiculo regVehiculo;
-    int pos=regVehiculo.buscarPosEnDisco(idVehiculo);
+    int pos=buscarPosVehiculo(idVehiculo);
     regVehiculo.leerDeDisco(pos);
     cout<<regVehiculo.getMarca()<<" "<<regVehiculo.getModelo();
     cout<<endl<<"Dominio del vehiculo: "<<dominioVehiculo;
     cout<<endl<<"Vendedor: ";
     Vendedor regVendedor;
-    pos=regVendedor.buscarPosEnDisco(dniVendedor);
+    pos=buscarPosVendedor(dniVendedor);
     regVendedor.leerDeDisco(pos);
     cout<<regVendedor.getNombre()<<" "<<regVendedor.getApellido();
     cout<<endl<<"Cliente: ";
     Cliente regCliente;
-    pos=regCliente.buscarPosEnDisco(dniCliente);
+    pos=buscarPosCliente(dniCliente);
     regCliente.leerDeDisco(pos);
     cout<<regCliente.getNombre()<<" "<<regCliente.getApellido();
     cout<<endl<<"Monto de la venta: $"<<monto ;
@@ -178,7 +178,7 @@ int Operacion::buscarPosEnDisco(const int idOperacion){
 
 int Operacion::calculateGananciasAVendedor(){
      Vendedor regVendedor;
-     int pos=regVendedor.buscarPosEnDisco(dniVendedor);
+     int pos=buscarPosVendedor(dniVendedor);
      regVendedor.leerDeDisco(pos);
      int ganancias=monto*regVendedor.getComisionPorcentaje()/float(100);
      return ganancias;

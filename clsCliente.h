@@ -11,7 +11,6 @@ class Cliente:public Persona{
         void Mostrar();
         void Cargar();
         void cargarEnArchivo();
-        int buscarPosEnDisco(const int dni);
         bool leerDeDisco(const int pos);
         bool grabarEnDisco(const int pos);
         int calcularCantComprasRealizadas(const int dni);

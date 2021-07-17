@@ -80,11 +80,10 @@ int menuClientes(){
                      cout<<"------------------PAPELERA DE RECICLAJE---------------------------------"<<endl;
                     cout<<"------------------------------------------------------------------------" <<endl;
                      int dni,pos;
-                     Cliente regCliente;
                      cout<< "Ingrese el dni del cliente: ";
                      cin>>dni;
                      cout<<endl;
-                     pos=regCliente.buscarPosEnDisco(dni);
+                     pos=buscarPosCliente(dni);
                      if (pos==-1){
                          cout<<"No se ha encontrado un cliente con ese DNI"<<endl;
                          break;
@@ -137,7 +136,7 @@ void buscarCliente(){
      cout<< "Ingrese el dni del cliente: ";
      cin>>dni;
      cout<<endl;
-     pos=regCliente.buscarPosEnDisco(dni);
+     pos=buscarPosCliente(dni);
      if (pos==-1){
          cout<<"No se ha encontrado un cliente con ese DNI"<<endl;
          return;
@@ -199,9 +198,10 @@ void eliminarCliente(int dni){
      int tam = cantDeClientes(),pos;
      Cliente regCliente,*vecCliente;
      vecCliente= new Cliente[tam];
-     pos=regCliente.buscarPosEnDisco(dni);
+     pos=buscarPosCliente(dni);
      if (pos==-1){
         cout<<"El cliente no existe."<<endl;
+        delete vecCliente;
         return;
      }
      FILE *p;

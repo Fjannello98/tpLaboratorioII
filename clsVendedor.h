@@ -15,7 +15,6 @@ class Vendedor:public Persona{
         void Mostrar();
         void Cargar();
         void cargarEnArchivo();
-        int buscarPosEnDisco(const int);
         bool leerDeDisco(const int);
         bool grabarEnDisco(const int);
         int calculateCantVentasRealizadas();
