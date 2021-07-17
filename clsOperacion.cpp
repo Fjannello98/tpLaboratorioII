@@ -50,12 +50,12 @@ void Operacion::Cargar(){
     cout <<"Ingrese el monto de la venta: ";
     cin >> monto;"\n";
     monto=validateMonto(monto);
-    cout <<"Ingrese el dominio del vehiculo: ";
+    cout <<"Ingrese el dominio del vehiculo. Patente ejemplo: LLNNNNLL (L: Letra, N:Numero entero) :  ";
     int val;
     cargarCadena(dominioVehiculo,7);"\n";
     val=validateDominio(dominioVehiculo,7);
     while(val!=0){
-        cout <<"Ingrese el dominio del vehiculo: ";
+        cout <<"Ingrese el dominio del vehiculo nuevamente: ";
         cargarCadena(dominioVehiculo,7);"\n";
         val=validateDominio(dominioVehiculo,7);
     }

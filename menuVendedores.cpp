@@ -9,7 +9,12 @@ using namespace std;
 
 #include "rlutil.h"
 using namespace rlutil;
-
+#include "clsFecha.h"
+#include "clsPersona.h"
+#include "clsVendedor.h"
+#include "clsCliente.h"
+#include "clsVehiculo.h"
+#include "clsOperacion.h"
 #include "funciones.h"
 #include "menuVendedores.h"
 
@@ -262,20 +267,6 @@ void eliminarVendedor(int dni){
      fclose(p);
      delete vecVendedor;
 
-}
-
-
-int cantDeVendedores(){
-      FILE *p;
-      int cant;
-      Vendedor regVendedor;
-      p=fopen("Vendedores.dat","rb");
-      if (p==NULL){
-            return -1;
-      }
-      fseek(p,0,2);
-      cant=ftell(p)/(sizeof (Vendedor));
-      return cant;
 }
 
 

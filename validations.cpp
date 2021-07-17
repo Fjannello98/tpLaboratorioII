@@ -369,23 +369,63 @@ int i;
 for(i=0;i<numcadena;i++){
         if(i==0 || i==1){
             if(isalpha(dominioVehiculo[i])==false){
-                cout<<"ERROR EN LOS PRIMEROS DOS DIGITOS, LOS CUALES DEBERIAN SER LETRAS"<<endl;
+                setBackgroundColor(RED);
+                cout<<"ERROR!!";
+                setBackgroundColor(BLACK);
+                cout<<" LOS PRIMEROS DOS DIGITOS DEBEN SER LETRAS (LLNNNLL)"<<endl;
                 return 1;
             }
         }
         if(i==2 || i==3 || i==4){
             if(isdigit(dominioVehiculo[i])==false){
-                cout<<" ERROR LOS TRES DIGITOS DEL MEDIO, LOS CUALES DEBERIAN SER NUMEROS"<<endl;
+                setBackgroundColor(RED);
+                cout<<"ERROR!!";
+                setBackgroundColor(BLACK);
+                cout<<"  LOS TRES DIGITOS DEL MEDIO DEBEN SER NUMEROS (LLNNNLL)"<<endl;
                 return 1;
             }
         }
         if(i==5 || i==6){
             if(isalpha(dominioVehiculo[i])==false){
-                cout<<" ERROR EN LOS ULTIMOS DOS DIGITOS, LOS CUALES DEBERIAN SER LETRAS"<<endl;
+                setBackgroundColor(RED);
+                cout<<"ERROR!!";
+                setBackgroundColor(BLACK);
+                cout<<" LOS ULTIMOS DOS DIGITOS DEBERIAN SER LETRAS (LLNNNLL)"<<endl;
                 return 1;
             }
         }
 }
+cout<<endl<<"Validando disponibilidad de dicha patente...";
+int cantOpRegistradas = cantDeOperaciones();
+if (cantOpRegistradas == 0){
+  setBackgroundColor(GREEN);
+  cout<<endl<<"Patente disponible.";
+  setBackgroundColor(BLACK);
+  return 0;
+}
+FILE *p;
+Operacion regOperacion;
+p=fopen("Operaciones.dat","rb");
+if (p==NULL){
+    cout<<endl<<"Error al tratar de buscar la patente.";
+    return -1;
+}
+while (fread(&regOperacion,sizeof (Operacion),1,p)==1){
+    if (strcmp(regOperacion.getDominioVehiculo(),dominioVehiculo)==0){
+       setBackgroundColor(RED);
+       cout<<endl<<"Error!";
+       setBackgroundColor(BLACK);
+       cout<<" La patente no se encuentra disponible, ya está asociada al vehiculo de otra operacion.";
+       cout<<endl;
+       fclose(p);
+       return -1;
+    }
+}
+fclose(p);
+setBackgroundColor(GREEN);
+cout<<endl<<"Patente disponible.";
+setBackgroundColor(BLACK);
+cout<<endl;
 return 0;
 }
 

@@ -53,6 +53,61 @@ void LINEA_EN_X(const int xInicial,const int xFinal,const int y,const int color)
 }
 
 
+// Cantidad de registros
+
+int cantDeOperaciones(){
+      FILE *p;
+      int cant;
+      Operacion regOperacion;
+      p=fopen("Operaciones.dat","rb");
+      if (p==NULL){
+            cout<<"No se pudo abrir el archivo";
+            return -1;
+      }
+      fseek(p,0,2);
+      cant=ftell(p)/(sizeof (Operacion));
+      return cant;
+}
+
+
+int cantDeVendedores(){
+      FILE *p;
+      int cant;
+      Vendedor regVendedor;
+      p=fopen("Vendedores.dat","rb");
+      if (p==NULL){
+            return -1;
+      }
+      fseek(p,0,2);
+      cant=ftell(p)/(sizeof (Vendedor));
+      return cant;
+}
+
+int cantDeClientes(){
+      FILE *p;
+      int cant;
+      Cliente regCliente;
+      p=fopen("Clientes.dat","rb");
+      if (p==NULL)return -1;
+      fseek(p,0,2);
+      cant=ftell(p)/(sizeof (Cliente));
+      return cant;
+}
+
+int cantDeVehiculos(){
+      FILE *p;
+      int cant;
+      Vehiculo regVehiculo;
+      p=fopen("Vehiculos.dat","rb");
+      if (p==NULL){
+            return -1;
+      }
+      fseek(p,0,2);
+      cant=ftell(p)/(sizeof (Vehiculo));
+      return cant;
+}
+
+
 // Buscar Posicion
 
 int buscarPosOperacion(const int cod){

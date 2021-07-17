@@ -10,7 +10,6 @@
 void listarClientes();
 void buscarCliente();
 void eliminarCliente(int dni);
-int cantDeClientes();
 void changeClientePapelera(int pos);
 int menuClientes();
 

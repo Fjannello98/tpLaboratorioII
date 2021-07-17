@@ -248,18 +248,6 @@ void eliminarCliente(int dni){
 
 
 
-int cantDeClientes(){
-      FILE *p;
-      int cant;
-      Cliente regCliente;
-      p=fopen("Clientes.dat","rb");
-      if (p==NULL)return -1;
-      fseek(p,0,2);
-      cant=ftell(p)/(sizeof (Cliente));
-      return cant;
-}
-
-
 
 
 #endif // MENUCLIENTES_CPP_INCLUDED

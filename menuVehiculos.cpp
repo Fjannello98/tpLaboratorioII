@@ -225,18 +225,6 @@ void agregarStockVehiculo(int idVehiculo,int stock){ //TODO: Arreglar esta funci
       return;
 }
 
-int cantDeVehiculos(){
-      FILE *p;
-      int cant;
-      Vehiculo regVehiculo;
-      p=fopen("Vehiculos.dat","rb");
-      if (p==NULL){
-            return -1;
-      }
-      fseek(p,0,2);
-      cant=ftell(p)/(sizeof (Vehiculo));
-      return cant;
-}
 
 
 

@@ -24,6 +24,7 @@ using namespace rlutil;
 
 //TODO: Cambiar estructuras de decision Si o No por una funcion
 //TODO: En la funcion eliminar, impedir que elimine si el vendedor/comprador tiene ventas asociadas
+//TODO: Validaciones de CIN
 
 
 enum MENU_MAIN{

@@ -53,7 +53,7 @@ int menuVentas(){
                     cout<<"------------------INGRESE DATOS DE VENTA:  --------------------------"<<endl;
                     cout<<"------------------------------------------------------------------------" <<endl;
                     Operacion regOperacion;
-                    regOperacion.Cargar(); // TODO: Dar ejemplo de patente validada y validar que no haya otra venta con esa patente.
+                    regOperacion.Cargar();
                     break;
                    }
 
@@ -107,20 +107,6 @@ void listarOperaciones(){
      return;
 }
 
-
-int cantDeOperaciones(){
-      FILE *p;
-      int cant;
-      Operacion regOperacion;
-      p=fopen("Operaciones.dat","rb");
-      if (p==NULL){
-            cout<<"No se pudo abrir el archivo";
-            return -1;
-      }
-      fseek(p,0,2);
-      cant=ftell(p)/(sizeof (Operacion));
-      return cant;
-}
 
 void actualizarEstadoOperacion(int pos){
    Operacion regOperacion;

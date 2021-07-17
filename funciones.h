@@ -19,6 +19,14 @@ Fecha getFechaDeHoy();
 void LINEA_EN_Y(const int,const int,const int,const int);
 void LINEA_EN_X(const int,const int,const int,const int);
 
+
+// Calcular cantidad de registros en archivos
+
+int cantDeOperaciones();
+int cantDeVendedores();
+int cantDeClientes();
+int cantDeVehiculos();
+
 // buscar posicion
 
 int buscarPosOperacion(const int);

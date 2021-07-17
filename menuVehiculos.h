@@ -9,7 +9,6 @@
 #include "clsOperacion.h"
 
 void listarVehiculos();
-int cantDeVehiculos();
 void buscarVehiculo();
 void eliminarVehiculo(int);
 void agregarStockVehiculo(int, int);
