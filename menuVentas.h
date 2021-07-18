@@ -5,5 +5,6 @@
 int menuVentas();
 void listarOperaciones();
 void actualizarEstadoOperacion(int);
+void eliminarOperacion(int);
 
 #endif // MENUVENTAS_H_INCLUDED

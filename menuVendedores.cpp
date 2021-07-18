@@ -22,6 +22,7 @@ enum MENU_VENDEDORES{
       OPCION_SALIR_DE_MENUVENDEDORES,
       OPCION_CARGAR_VENDEDOR,
       OPCION_LISTADO_VENDEDORES,
+      OPCION_VER_PAPELERA_VENDEDORES,
       OPCION_BUSCAR_VENDEDOR,
       OPCION_ACTUALIZAR_SUELDO,
       OPCION_CAMBIAR_PAPELERA_VENDEDOR,
@@ -44,14 +45,16 @@ int menuVendedores(){
       gotoxy(45,9);
       cout << "2. Ver listado de vendedores" << endl;
       gotoxy(45,10);
-      cout << "3. Buscar vendedor por DNI" << endl;
+      cout << "3. Ver vendedores en papelera" << endl;
       gotoxy(45,11);
-      cout << "4. Actualizar sueldo de vendedores" << endl;
+      cout << "4. Buscar vendedor por DNI" << endl;
       gotoxy(45,12);
-      cout << "5. Borrar/Recuperar vendedor de Papelera"<< endl;
+      cout << "5. Actualizar sueldo de vendedores" << endl;
       gotoxy(45,13);
-      cout << "6. Borrar un vendedor de forma permanente"<< endl;
+      cout << "6. Borrar/Recuperar vendedor de Papelera"<< endl;
       gotoxy(45,14);
+      cout << "7. Borrar un vendedor de forma permanente"<< endl;
+      gotoxy(45,15);
       cout << "0. Volver al menu anterior" << endl;
       gotoxy(50,19);
       cout << "SELECCIONE UNA OPCION: " << endl;
@@ -61,42 +64,60 @@ int menuVendedores(){
       switch(opc){
         case OPCION_CARGAR_VENDEDOR:
                 {
-                    cout<<"------------------------------------------------------------------------" <<endl;
-                    cout<<"------------------INGRESE DATOS DE VENDEDOR:  --------------------------"<<endl;
-                    cout<<"------------------------------------------------------------------------" <<endl;
+                    gotoxy(55,3);
+                    cout<<"CARGA DE UN VENDEDOR";
+                    LINEA_EN_X(50,79,4,8);
+                    cout<<endl<<endl;
                     Vendedor regVendedor;
                     regVendedor.Cargar();
                     break;
                 }
         case OPCION_LISTADO_VENDEDORES:
-                cout<<"------------------------------------------------------------------------" <<endl;
-                cout<<"------------------VENDEDORES ACTIVOS-------------------------------------"<<endl;
-                cout<<"------------------------------------------------------------------------" <<endl;
-                listarVendedores();
-                break;
+                {
+                    gotoxy(55,3);
+                    cout<<"VENDEDORES ACTIVOS";
+                    LINEA_EN_X(50,79,4,8);
+                    cout<<endl<<endl;
+                    listarVendedoresActivos();
+                    break;
+                }
+        case OPCION_VER_PAPELERA_VENDEDORES:
+                {
+                    gotoxy(55,3);
+                    cout<<"PAPELERA DE VENDEDORES";
+                    LINEA_EN_X(50,79,4,8);
+                    cout<<endl<<endl;
+                    listarVendedoresEnPapelera();
+                    break;
+                }
         case OPCION_BUSCAR_VENDEDOR:
-                cout<<"------------------------------------------------------------------------" <<endl;
-                cout<<"------------------BUSCADOR DE VENDEDORES---------------------------------"<<endl;
-                cout<<"------------------------------------------------------------------------" <<endl;
-                buscarVendedor();
-                break;
+                {
+                    gotoxy(55,3);
+                    cout<<"BUSCAR UN VENDEDOR";
+                    LINEA_EN_X(50,79,4,8);
+                    cout<<endl<<endl;
+                    buscarVendedor();
+                    break;
+                }
         case OPCION_ACTUALIZAR_SUELDO:
                {
-                cout<<"------------------------------------------------------------------------" <<endl;
-                cout<<"------------------ACTUALIZAR SUELDO -------------------------------------"<<endl;
-                cout<<"------------------------------------------------------------------------" <<endl;
-                int dni;
-                cout<< "Ingrese el dni del vendedor: ";
-                cin>>dni;
-                cout<<endl;
-                actualizarSueldoVendedor(dni);
+                    gotoxy(55,3);
+                    cout<<"ACTUALIZAR SUELDO";
+                    LINEA_EN_X(50,79,4,8);
+                    cout<<endl<<endl;
+                    int dni;
+                    cout<< "Ingrese el dni del vendedor al que quiera actualizar el sueldo: ";
+                    cin>>dni;
+                    cout<<endl;
+                    actualizarSueldoVendedor(dni);
                }
         break;
         case OPCION_CAMBIAR_PAPELERA_VENDEDOR:
                 {
-                     cout<<"------------------------------------------------------------------------" <<endl;
-                     cout<<"------------------PAPELERA DE RECICLAJE---------------------------------"<<endl;
-                    cout<<"------------------------------------------------------------------------" <<endl;
+                     gotoxy(50,3);
+                     cout<<"CAMBIAR ESTADO DE VENDEDOR";
+                     LINEA_EN_X(45,81,4,8);
+                     cout<<endl<<endl;
                      int dni,pos;
                      cout<< "Ingrese el dni del vendedor: ";
                      cin>>dni;
@@ -112,12 +133,18 @@ int menuVendedores(){
                 }
         case OPCION_BORRAR_VENDEDOR:
                  {
-                    cout<<"------------------------------------------------------------------------" <<endl;
-                    cout<<"------------------ELIMINAR UN VENDEDOR PERMANENTEMENTE-----------------"<<endl;
-                    cout<<"------------------------------------------------------------------------" <<endl;
+                    gotoxy(55,3);
+                    cout<<"BORRAR VENDEDOR";
+                    LINEA_EN_X(50,79,4,8);
+                    cout<<endl<<endl;
                     int dni;
                     cout<<"Ingrese el DNI del vendedor a eliminar: ";
                     cin>>dni;
+                    bool tieneOperaciones=buscarVendedorEnOperaciones(dni);
+                    if (tieneOperaciones){
+                       cout<<"El dni está asociado a un vendedor con operaciones. Elimine primero las operaciones asociadas o pase el cliente a la papelera en su lugar.";
+                       break;
+                    }
                     eliminarVendedor(dni);
                     break;
                 }
@@ -135,7 +162,7 @@ int menuVendedores(){
 
 
 
-void listarVendedores(){
+void listarVendedoresActivos(){
      Vendedor regVendedor;
      int cantVendedores= cantDeVendedores();
      for(int i=0;i<cantVendedores;i++){
@@ -144,11 +171,31 @@ void listarVendedores(){
                 cout<<endl<< "No pudo leer el vendedor";
                 return;
         }
-        regVendedor.Mostrar();
-        cout<<endl;
+        if (regVendedor.getEstado()==true){
+            regVendedor.Mostrar();
+            cout<<endl<<endl;
+        }
      }
      return;
 }
+
+void listarVendedoresEnPapelera(){
+     Vendedor regVendedor;
+     int cantVendedores= cantDeVendedores();
+     for(int i=0;i<cantVendedores;i++){
+        bool leyo=regVendedor.leerDeDisco(i);
+        if (leyo==false) {
+                cout<<endl<< "No pudo leer el vendedor";
+                return;
+        }
+        if (regVendedor.getEstado()==false){
+            regVendedor.Mostrar();
+            cout<<endl<<endl;
+        }
+     }
+     return;
+}
+
 
 
 
@@ -219,7 +266,7 @@ void changeVendedorPapelera(int pos){
 
 void eliminarVendedor(int dni){
      int tam = cantDeVendedores(),pos;
-     Vendedor regVendedor,*vecVendedor;
+     Vendedor *vecVendedor;
      vecVendedor= new Vendedor[tam];
      pos=buscarPosVendedor(dni);
      if (pos==-1){
@@ -239,7 +286,7 @@ void eliminarVendedor(int dni){
      fclose(p);
      cout<<"Esta seguro/a que desea eliminar al vendedor "<< vecVendedor[pos].getNombre();
      cout<<" "<< vecVendedor[pos].getApellido()<<"?";
-     cout<<endl<<"1-S� 2-No: ";"\n";
+     cout<<endl<<"1-Si 2-No: ";"\n";
      int rta;
      cin>>rta;
      while (rta!=1 && rta!=2){

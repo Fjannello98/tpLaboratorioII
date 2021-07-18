@@ -20,6 +20,7 @@ enum MENU_CLIENTES{
       OPCION_SALIR_DE_MENUCLIENTES,
       OPCION_CARGAR_CLIENTE,
       OPCION_LISTADO_CLIENTES,
+      OPCION_VER_PAPELERA_CLIENTES,
       OPCION_BUSCAR_CLIENTE,
       OPCION_CAMBIAR_PAPELERA_CLIENTE,
       OPCION_BORRAR_CLIENTE
@@ -40,12 +41,14 @@ int menuClientes(){
       gotoxy(45,9);
       cout << "2. Ver listado de clientes" << endl;
       gotoxy(45,10);
-      cout << "3. Buscar cliente por DNI" << endl;
+      cout << "3. Ver clientes en Papelera" << endl;
       gotoxy(45,11);
-      cout << "4. Borrar/Recuperar cliente de Papelera"<< endl;
+      cout << "4. Buscar cliente por DNI" << endl;
       gotoxy(45,12);
-      cout << "5. Borrar un cliente de forma permanente"<< endl;
+      cout << "5. Borrar/Recuperar cliente de Papelera"<< endl;
       gotoxy(45,13);
+      cout << "6. Borrar un cliente de forma permanente"<< endl;
+      gotoxy(45,14);
       cout << "0. Volver al menu anterior" << endl;
       gotoxy(50,19);
       cout << "SELECCIONE UNA OPCION: " << endl;
@@ -55,52 +58,78 @@ int menuClientes(){
       switch(opc){
         case OPCION_CARGAR_CLIENTE:
                 {
-                    cout<<"------------------------------------------------------------------------" <<endl;
-                    cout<<"------------------INGRESE DATOS DE CLIENTE:  ---------------------------"<<endl;
-                    cout<<"------------------------------------------------------------------------" <<endl;
-                    Cliente regCliente;
-                    regCliente.Cargar();
-                    break;
+                 gotoxy(55,3);
+                 cout<<"CARGA DE UN CLIENTE";
+                 LINEA_EN_X(50,79,4,4);
+                 cout<<endl<<endl;
+                 Cliente regCliente;
+                 regCliente.Cargar();
+                 break;
                 }
         case OPCION_LISTADO_CLIENTES:
-                cout<<"------------------------------------------------------------------------" <<endl;
-                cout<<"------------------CLIENTES ACTIVOS--------------------------------------"<<endl;
-                cout<<"------------------------------------------------------------------------" <<endl;
-                listarClientes();
-                break;
+                {
+                 gotoxy(55,3);
+                 cout<<"CLIENTES ACTIVOS";
+                 LINEA_EN_X(50,77,4,4);
+                 cout<<endl<<endl;
+                 listarClientesActivos();
+                 break;
+                }
+        case OPCION_VER_PAPELERA_CLIENTES:
+                {
+                 gotoxy(55,3);
+                 cout<<"CLIENTES EN PAPELERA";
+                 LINEA_EN_X(50,76,4,4);
+                 cout<<endl<<endl;
+                 listarClientesEnPapelera();
+                 break;
+                }
         case OPCION_BUSCAR_CLIENTE:
-                cout<<"------------------------------------------------------------------------" <<endl;
-                cout<<"------------------BUSCADOR DE CLIENTES---------------------------------"<<endl;
-                cout<<"------------------------------------------------------------------------" <<endl;
-                buscarCliente();
-                break;
+                {
+                 gotoxy(55,3);
+                 cout<<"BUSCAR UN CLIENTE POR DNI";
+                 LINEA_EN_X(50,85,4,4);
+                 cout<<endl<<endl;
+                 buscarCliente();
+                 break;
+                }
         case OPCION_CAMBIAR_PAPELERA_CLIENTE:
                 {
-                     cout<<"------------------------------------------------------------------------" <<endl;
-                     cout<<"------------------PAPELERA DE RECICLAJE---------------------------------"<<endl;
-                    cout<<"------------------------------------------------------------------------" <<endl;
-                     int dni,pos;
-                     cout<< "Ingrese el dni del cliente: ";
-                     cin>>dni;
-                     cout<<endl;
-                     pos=buscarPosCliente(dni);
-                     if (pos==-1){
-                         cout<<"No se ha encontrado un cliente con ese DNI"<<endl;
-                         break;
-                     }
-                     changeClientePapelera(pos);
+                 gotoxy(55,3);
+                 cout<<"CAMBIAR ESTADO DE CLIENTE";
+                 LINEA_EN_X(50,85,4,4);
+                 cout<<endl<<endl;
+                 int dni,pos;
+                 cout<< "Ingrese el dni del cliente: ";
+                 cin>>dni;
+                 cout<<endl;
+                 pos=buscarPosCliente(dni);
+                 if (pos==-1){
+                     cout<<"No se ha encontrado un cliente con ese DNI"<<endl;
                      break;
-
+                 }
+                 changeClientePapelera(pos);
+                 break;
                 }
         case OPCION_BORRAR_CLIENTE:
-                cout<<"------------------------------------------------------------------------" <<endl;
-                cout<<"------------------ELIMINAR UN VENDEDOR PERMANENTEMENTE-----------------"<<endl;
-                cout<<"------------------------------------------------------------------------" <<endl;
+                {
+                gotoxy(45,3);
+                cout<<"BORRAR UN CLIENTE PERMANENTEMENTE";
+                gotoxy(30,4);
+                cout<<"(¡Solo se pueden borrar clientes sin operaciones asociadas!)";
+                LINEA_EN_X(25,95,5,4);
+                cout<<endl<<endl;
                 int dni;
                 cout<<"Ingrese el DNI del cliente a eliminar: ";
                 cin>>dni;
+                bool tieneOperaciones=buscarClienteEnOperaciones(dni);
+                if (tieneOperaciones){
+                  cout<<"El dni está asociado a un cliente con operaciones. Elimine primero las operaciones asociadas o pase el cliente a la papelera en su lugar.";
+                  break;
+                }
                 eliminarCliente(dni);
                 break;
+                }
         case OPCION_SALIR_DE_MENUCLIENTES: return 0;
                 break;
         default: cout<<" OPCION INCORRECTA"<<endl;
@@ -114,7 +143,7 @@ int menuClientes(){
 
 
 
-void listarClientes(){
+void listarClientesActivos(){
      Cliente regCliente;
      int cantClientes= cantDeClientes();
      for(int i=0;i<cantClientes;i++){
@@ -123,7 +152,26 @@ void listarClientes(){
                 cout<<endl<< "No pudo leer el cliente";
                 return;
         }
-        regCliente.Mostrar();
+        if (regCliente.getEstado()==true){
+                regCliente.Mostrar();
+        }
+        cout<<endl<<endl;
+     }
+     return;
+}
+
+void listarClientesEnPapelera(){
+     Cliente regCliente;
+     int cantClientes= cantDeClientes();
+     for(int i=0;i<cantClientes;i++){
+        bool leyo=regCliente.leerDeDisco(i);
+        if (leyo==false) {
+                cout<<endl<< "No pudo leer el cliente";
+                return;
+        }
+        if (regCliente.getEstado()==false){
+                regCliente.Mostrar();
+        }
         cout<<endl<<endl;
      }
      return;
@@ -196,9 +244,10 @@ void changeClientePapelera(int pos){
 
 void eliminarCliente(int dni){
      int tam = cantDeClientes(),pos;
-     Cliente regCliente,*vecCliente;
+     Cliente *vecCliente;
      vecCliente= new Cliente[tam];
      pos=buscarPosCliente(dni);
+
      if (pos==-1){
         cout<<"El cliente no existe."<<endl;
         delete vecCliente;
@@ -207,7 +256,7 @@ void eliminarCliente(int dni){
      FILE *p;
      p=fopen("Clientes.dat","rb");
      if (p==NULL){
-            cout<<"No se pudo abrir el archivo";
+            cout<<"No se pudo abrir el archivo de clientes";
             fclose(p);
             delete vecCliente;
             return;

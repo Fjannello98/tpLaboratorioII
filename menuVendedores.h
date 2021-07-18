@@ -3,7 +3,8 @@
 
 
 
-void listarVendedores();
+void listarVendedoresActivos();
+void listarVendedoresEnPapelera();
 void buscarVendedor();
 void eliminarVendedor(int dni);
 void actualizarSueldoVendedor(int dni);

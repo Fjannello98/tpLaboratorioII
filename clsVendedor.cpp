@@ -38,14 +38,12 @@ void Vendedor::Cargar(){
 
 
 void Vendedor::Mostrar(){
-    if (estado==true){
-            Persona::Mostrar();
-            cout<<"Sueldo bruto: "<<sueldoBruto <<"$"<<endl;
-            cout<<"Porcentaje de comision actual: "<<comisionPorcentaje <<"%"<<endl;
-            cout<<"Cantidad de ventas realizadas: "<<Vendedor::calculateCantVentasRealizadas();
-            cout<<endl;
-    }
-    else return;
+    Persona::Mostrar();
+    cout<<"Sueldo bruto: "<<sueldoBruto <<"$"<<endl;
+    cout<<"Porcentaje de comision actual: "<<comisionPorcentaje <<"%"<<endl;
+    cout<<"Cantidad de ventas realizadas: "<<Vendedor::calculateCantVentasRealizadas();
+    cout<<endl;
+    return;
 }
 
 void Vendedor::cargarEnArchivo(){

@@ -15,20 +15,23 @@ bool Cliente::getPidioCredito(){return pidioCredito;};
 void Cliente::setPidioCredito(const bool pidioCredito){this->pidioCredito=pidioCredito;};
 
 void Cliente::Mostrar(){
-    // TODO: revisar metodo mostrar en el buscador por DNI
-    if (estado==true){
-            Persona::Mostrar();
-            cout<<"Cantidad de compras realizadas: ";
-            int cantCompras=Cliente::calcularCantComprasRealizadas(dni);
-            cout<< cantCompras;
-            if (cantCompras>0){
-                cout<<endl<<"Patentes asociadas al cliente: ";
-                Cliente::mostrarAutosAsociados(dni);
-            }
-            return;
+    Persona::Mostrar();
+    cout<<"Cantidad de compras realizadas: ";
+    int cantCompras=Cliente::calcularCantComprasRealizadas(dni);
+    cout<< cantCompras;
+    if (cantCompras>0){
+        cout<<endl<<"Patentes asociadas al cliente: ";
+        Cliente::mostrarAutosAsociados(dni);
     }
     cout<<endl;
-
+    cout<<"Estado: ";
+    if (estado==true) {
+     cout<<" activo";
+    }
+    else {
+    cout<<" en la papelera";
+    }
+    return;
 }
 
 void Cliente::Cargar(){

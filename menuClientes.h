@@ -7,7 +7,8 @@
 #include "clsVehiculo.h"
 #include "clsOperacion.h"
 
-void listarClientes();
+void listarClientesActivos();
+void listarClientesEnPapelera();
 void buscarCliente();
 void eliminarCliente(int dni);
 void changeClientePapelera(int pos);

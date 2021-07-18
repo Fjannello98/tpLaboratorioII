@@ -8,8 +8,10 @@
 #include "clsVehiculo.h"
 #include "clsOperacion.h"
 
-void listarVehiculos();
+void listarVehiculosDisponibles();
+void listarVehiculosEnPapelera();
 void buscarVehiculo();
+void changeVehiculoPapelera(int);
 void eliminarVehiculo(int);
 void agregarStockVehiculo(int, int);
 int menuVehiculos();

@@ -182,4 +182,63 @@ int buscarPosVehiculo(const int id){
    fclose(p);
    return pos;
 }
+
+// Buscar si tiene operaciones asociadas
+
+bool buscarClienteEnOperaciones (const int dni){
+   Operacion regOperacion;
+   FILE *p;
+   p=fopen("Operaciones.dat","rb");
+   if (p==NULL){
+     cout<<endl<<"Error revisando si el cliente tiene operaciones."<<endl;
+     return false;
+   }
+   while (fread(&regOperacion,sizeof (Operacion),1,p)==1){
+     if (regOperacion.getDniCliente()==dni){
+        fclose(p);
+        return true;
+     }
+   }
+   fclose(p);
+   return false;
+}
+
+bool buscarVendedorEnOperaciones (const int dni){
+   Operacion regOperacion;
+   FILE *p;
+   p=fopen("Operaciones.dat","rb");
+   if (p==NULL){
+     cout<<endl<<"Error revisando si el vendedor tiene operaciones."<<endl;
+     return false;
+   }
+   while (fread(&regOperacion,sizeof (Operacion),1,p)==1){
+     if (regOperacion.getDniVendedor()==dni){
+        fclose(p);
+        return true;
+     }
+   }
+   fclose(p);
+   return false;
+}
+
+bool buscarVehiculoEnOperaciones (const int id){
+   Operacion regOperacion;
+   FILE *p;
+   p=fopen("Operaciones.dat","rb");
+   if (p==NULL){
+     cout<<endl<<"Error revisando si el vehiculo está en operaciones."<<endl;
+     return false;
+   }
+   while (fread(&regOperacion,sizeof (Operacion),1,p)==1){
+     if (regOperacion.getIdVehiculo()==id){
+        fclose(p);
+        return true;
+     }
+   }
+   fclose(p);
+   return false;
+}
+
+
+
 #endif // FUNCIONES_CPP_INCLUDED

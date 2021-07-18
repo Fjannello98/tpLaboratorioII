@@ -19,6 +19,10 @@ using namespace std;
 using namespace rlutil;
 
 
+bool validateInt(char *cIn){
+
+}
+
 // VALIDACIONES CLASE FECHA
 
 
@@ -54,7 +58,8 @@ int validateDia(int dia, int mes, int anio){
                     }
                     return aux;
                     break;
-        case 2: {if((auxA % 4 == 0 && auxA % 100 != 0) || (auxA % 400 == 0)){
+        case 2: {
+            if((auxA % 4 == 0 && auxA % 100 != 0) || (auxA % 400 == 0)){
                         while(aux>29 || aux<1){
                     setBackgroundColor(RED);
                     cout<<endl<<"Error!";
@@ -64,7 +69,7 @@ int validateDia(int dia, int mes, int anio){
                     }
                     return aux;
                     }
-                    else{
+            else{
                 while(aux>28 || aux<1){
                     setBackgroundColor(RED);
                     cout<<endl<<"Error!";
@@ -73,11 +78,10 @@ int validateDia(int dia, int mes, int anio){
                     cin>>aux;
                     }
                     return aux;}
-                }
-                break;
+            }
+            break;
      }
-     }
-// TODO: Revisar esto. Creo que se puede hacer de una forma más eficiente
+}
 
 
 int validateMes(int mes,int dia){
@@ -370,8 +374,13 @@ int validateVehiculoStock(int idVehiculo){
     int pos=buscarPosVehiculo(idVehiculo);
     regVehiculo.leerDeDisco(pos);
     if(regVehiculo.getEstado()==false){
-         cout<<endl<<endl<<"El vehiculo no tiene stock.";
-         cout<<endl<<"Agregue stock en la seccion de 'Gestionar Vehiculos' si es que ingreso a sucursal.";
+         cout<<endl<<endl<<"El vehiculo no se encuentra disponible.";
+         cout<<endl<<"Esto puede deberse a que haya sido enviado a la papelera. Restaurelo en la seccion 'Gestionar vehiculos' antes de cargar esta operacion";
+         return 0;
+    }
+    if(regVehiculo.getStock()==0){
+         cout<<endl<<endl<<"El vehiculo no se encuentra disponible.";
+         cout<<endl<<"No tiene stock disponible. Agregue stock en la seccion 'Gestionar Vehiculos' antes de cargar esta operacion.";
          return 0;
     }
     return idVehiculo;
@@ -389,6 +398,11 @@ int validateClienteExiste(int dniCliente){
             regCliente.Cargar();
             return regCliente.getDni();
     }
+    regCliente.leerDeDisco(pos);
+    if (regCliente.getEstado()==false){
+       cout<<"El cliente se encuentra en la papelera. Saque al cliente de la papelera en la seccion 'Gestionar Clientes' antes de sumarle operaciones.";
+       return 0;
+    }
     return dniCliente;
 }
 
@@ -404,73 +418,78 @@ int validateVendedorExiste(int dniVendedor){
             regVendedor.Cargar();
             return regVendedor.getDni();
     }
+    regVendedor.leerDeDisco(pos);
+    if (regVendedor.getEstado()==false){
+       cout<<"El vendedor se encuentra en la papelera. Saque al vendedor de la papelera en la seccion 'Gestionar Vendedores' antes de sumarle operaciones.";
+       return 0;
+    }
     return dniVendedor;
 }
 
 
 int validateDominio(char *dominioVehiculo, int numcadena){
-int i;
-for(i=0;i<numcadena;i++){
-        if(i==0 || i==1){
-            if(isalpha(dominioVehiculo[i])==false){
-                setBackgroundColor(RED);
-                cout<<"ERROR!!";
-                setBackgroundColor(BLACK);
-                cout<<" LOS PRIMEROS DOS DIGITOS DEBEN SER LETRAS (LLNNNLL)"<<endl;
-                return 1;
+    int i;
+    for(i=0;i<numcadena;i++){
+            if(i==0 || i==1){
+                if(isalpha(dominioVehiculo[i])==false){
+                    setBackgroundColor(RED);
+                    cout<<"ERROR!!";
+                    setBackgroundColor(BLACK);
+                    cout<<" LOS PRIMEROS DOS DIGITOS DEBEN SER LETRAS (LLNNNLL)"<<endl;
+                    return 1;
+                }
             }
-        }
-        if(i==2 || i==3 || i==4){
-            if(isdigit(dominioVehiculo[i])==false){
-                setBackgroundColor(RED);
-                cout<<"ERROR!!";
-                setBackgroundColor(BLACK);
-                cout<<"  LOS TRES DIGITOS DEL MEDIO DEBEN SER NUMEROS (LLNNNLL)"<<endl;
-                return 1;
+            if(i==2 || i==3 || i==4){
+                if(isdigit(dominioVehiculo[i])==false){
+                    setBackgroundColor(RED);
+                    cout<<"ERROR!!";
+                    setBackgroundColor(BLACK);
+                    cout<<"  LOS TRES DIGITOS DEL MEDIO DEBEN SER NUMEROS (LLNNNLL)"<<endl;
+                    return 1;
+                }
             }
-        }
-        if(i==5 || i==6){
-            if(isalpha(dominioVehiculo[i])==false){
-                setBackgroundColor(RED);
-                cout<<"ERROR!!";
-                setBackgroundColor(BLACK);
-                cout<<" LOS ULTIMOS DOS DIGITOS DEBERIAN SER LETRAS (LLNNNLL)"<<endl;
-                return 1;
+            if(i==5 || i==6){
+                if(isalpha(dominioVehiculo[i])==false){
+                    setBackgroundColor(RED);
+                    cout<<"ERROR!!";
+                    setBackgroundColor(BLACK);
+                    cout<<" LOS ULTIMOS DOS DIGITOS DEBERIAN SER LETRAS (LLNNNLL)"<<endl;
+                    return 1;
+                }
             }
-        }
-}
-cout<<endl<<"Validando disponibilidad de dicha patente...";
-int cantOpRegistradas = cantDeOperaciones();
-if (cantOpRegistradas == 0){
-  setBackgroundColor(GREEN);
-  cout<<endl<<"Patente disponible.";
-  setBackgroundColor(BLACK);
-  return 0;
-}
-FILE *p;
-Operacion regOperacion;
-p=fopen("Operaciones.dat","rb");
-if (p==NULL){
-    cout<<endl<<"Error al tratar de buscar la patente.";
-    return -1;
-}
-while (fread(&regOperacion,sizeof (Operacion),1,p)==1){
-    if (strcmp(regOperacion.getDominioVehiculo(),dominioVehiculo)==0){
-       setBackgroundColor(RED);
-       cout<<endl<<"Error!";
-       setBackgroundColor(BLACK);
-       cout<<" La patente no se encuentra disponible, ya está asociada al vehiculo de otra operacion.";
-       cout<<endl;
-       fclose(p);
-       return -1;
     }
-}
-fclose(p);
-setBackgroundColor(GREEN);
-cout<<endl<<"Patente disponible.";
-setBackgroundColor(BLACK);
-cout<<endl;
-return 0;
+    cout<<endl<<"Validando disponibilidad de dicha patente...";
+    int cantOpRegistradas = cantDeOperaciones();
+    if (cantOpRegistradas == 0){
+      setBackgroundColor(GREEN);
+      cout<<endl<<"Patente disponible.";
+      setBackgroundColor(BLACK);
+      return 0;
+    }
+    FILE *p;
+    Operacion regOperacion;
+    p=fopen("Operaciones.dat","rb");
+    if (p==NULL){
+        cout<<endl<<"Error al tratar de buscar la patente.";
+        return -1;
+    }
+    while (fread(&regOperacion,sizeof (Operacion),1,p)==1){
+        if (strcmp(regOperacion.getDominioVehiculo(),dominioVehiculo)==0){
+           setBackgroundColor(RED);
+           cout<<endl<<"Error!";
+           setBackgroundColor(BLACK);
+           cout<<" La patente no se encuentra disponible, ya está asociada al vehiculo de otra operacion.";
+           cout<<endl;
+           fclose(p);
+           return -1;
+        }
+    }
+    fclose(p);
+    setBackgroundColor(GREEN);
+    cout<<endl<<"Patente disponible.";
+    setBackgroundColor(BLACK);
+    cout<<endl;
+    return 0;
 }
 
 #endif // VALIDATIONS_CPP_INCLUDED

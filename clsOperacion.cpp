@@ -83,16 +83,19 @@ void Operacion::Cargar(){
     idVehiculo=validateVehiculoExiste(idVehiculo);
     idVehiculo=validateVehiculoStock(idVehiculo);
     if (idVehiculo==0) return;
-    if (ventaCompleta==true) agregarStockVehiculo(idVehiculo,-1);
     cout<<endl<<"Ingrese el DNI del cliente: ";
     cin >> dniCliente;"\n";
     dniCliente=validateClienteExiste(dniCliente);
+    if (dniCliente==0) return;
     cout<<"Ingrese el DNI del vendedor: ";
     cin >> dniVendedor;"\n";
     dniVendedor=validateVendedorExiste(dniVendedor);
+    if (dniVendedor==0) return;
+    if (ventaCompleta==true) agregarStockVehiculo(idVehiculo,-1);
     gananciasAVendedor=Operacion::calculateGananciasAVendedor();
     gananciasAConcesionaria=monto-gananciasAVendedor;
     Operacion::cargarEnArchivo();
+    cout<<"Venta cargada con exito.";
 }
 
 

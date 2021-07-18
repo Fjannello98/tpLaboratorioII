@@ -34,5 +34,11 @@ int buscarPosCliente(const int);
 int buscarPosVendedor(const int);
 int buscarPosVehiculo(const int);
 
+// Buscar si tiene operaciones asociadas
+
+bool buscarClienteEnOperaciones (const int);
+bool buscarVendedorEnOperaciones (const int);
+bool buscarVehiculoEnOperaciones (const int);
+
 
 #endif // FUNCIONES_H_INCLUDED

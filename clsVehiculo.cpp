@@ -52,9 +52,9 @@ void Vehiculo::Cargar(){
     cantPuertas=validateCantDePuertas(cantPuertas);"\n";
     cout<<"Ingrese el stock: ";
     cin >> stock;"\n";
-    if (stock>0) this->setEstado(true);
+    estado=true;
     Vehiculo::cargarEnArchivo();
-
+    cout<<endl<<"Vehiculo activo.";
 }
 
 void Vehiculo::Mostrar(){
@@ -65,6 +65,14 @@ void Vehiculo::Mostrar(){
    cout<<"Anio: "<<anio <<endl;
    cout<<"Cantidad de Puertas: "<<cantPuertas <<endl;
    cout<<"Stock: "<<stock << " disponibles"<<endl;
+   cout<<"Estado: ";
+   if (estado==true) {
+     cout<<" activo";
+   }
+   else {
+    cout<<" en la papelera";
+   }
+   return;
 }
 
 void Vehiculo::cargarEnArchivo(){

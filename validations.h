@@ -3,6 +3,7 @@
 
 #include "clsFecha.h"
 
+
 // Validaciones en clase Fecha
 int validateDia(int,int,int);
 int validateMes(int,int);

@@ -17,7 +17,9 @@ enum MENU_VEHICULOS{
       OPCION_SALIR_MENUVEHICULOS,
       OPCION_CARGAR_VEHICULO,
       OPCION_LISTADO_VEHICULOS,
+      OPCION_VER_PAPELERA_VEHICULOS,
       OPCION_BUSCAR_VEHICULO,
+      OPCION_CAMBIAR_PAPELERA_VEHICULO,
       OPCION_ELIMINAR_VEHICULO,
       OPCION_AGREGAR_STOCK_VEHICULOS
 
@@ -37,12 +39,16 @@ int menuVehiculos(){
       gotoxy(45,9);
       cout << "2. Ver lista de vehiculos disponibles" << endl;
       gotoxy(45,10);
-      cout << "3. Revisar stock por ID" << endl;
+      cout << "3. Ver vehiculos en papelera" << endl;
       gotoxy(45,11);
-      cout << "4. Borrar un vehiculo"<< endl;
+      cout << "4. Revisar stock por ID" << endl;
       gotoxy(45,12);
-      cout << "5. Agregar stock a un vehiculo"<< endl;
+      cout << "5. Borrar/Recuperar vehiculo de Papelera " << endl;
       gotoxy(45,13);
+      cout << "6. Borrar un vehiculo de forma permanente"<< endl;
+      gotoxy(45,14);
+      cout << "7. Agregar stock a un vehiculo"<< endl;
+      gotoxy(45,15);
       cout << "0. Volver al menu anterior" << endl;
       gotoxy(50,19);
       cout << "SELECCIONE UNA OPCION: " << endl;
@@ -52,46 +58,90 @@ int menuVehiculos(){
       switch(opc){
         case OPCION_CARGAR_VEHICULO:
                 {
-                 cout<<"------------------------------------------------------------------------" <<endl;
-                 cout<<"------------------INGRESE DATOS DE VEHICULO:  --------------------------"<<endl;
-                 cout<<"------------------------------------------------------------------------" <<endl;
+                 gotoxy(55,3);
+                 cout<<"CARGA DE UN VEHICULO";
+                 LINEA_EN_X(50,79,4,6);
+                 cout<<endl<<endl;
                  Vehiculo regVehiculo;
                  regVehiculo.Cargar();
                  break;
                 }
         case OPCION_LISTADO_VEHICULOS:
-                cout<<"------------------------------------------------------------------------" <<endl;
-                cout<<"------------------VEHICULOS EN STOCK-------------------------------------"<<endl;
-                cout<<"------------------------------------------------------------------------" <<endl;
-                listarVehiculos();
-                break;
+                {
+                 gotoxy(55,3);
+                 cout<<"VEHICULOS DISPONIBLES";
+                 LINEA_EN_X(50,79,4,6);
+                 cout<<endl<<endl;
+                 listarVehiculosDisponibles();
+                 break;
+                }
+       case OPCION_VER_PAPELERA_VEHICULOS:
+                {
+                 gotoxy(55,3);
+                 cout<<"VEHICULOS EN PAPELERA";
+                 LINEA_EN_X(50,79,4,6);
+                 cout<<endl<<endl;
+                 listarVehiculosEnPapelera();
+                 break;
+                }
         case OPCION_BUSCAR_VEHICULO:
-                cout<<"------------------------------------------------------------------------" <<endl;
-                cout<<"------------------BUSCADOR DE VEHICULOS---------------------------------"<<endl;
-                cout<<"------------------------------------------------------------------------" <<endl;
-                buscarVehiculo();
-                break;
+                {
+                 gotoxy(55,3);
+                 cout<<"BUSCADOR DE VEHICULOS";
+                 LINEA_EN_X(50,79,4,6);
+                 cout<<endl<<endl;
+                 buscarVehiculo();
+                 break;
+                }
         case OPCION_ELIMINAR_VEHICULO:
-
-                cout<<"------------------------------------------------------------------------" <<endl;
-                cout<<"------------------ELIMINAR UN VEHICULO PERMANENTEMENTE-----------------"<<endl;
-                cout<<"------------------------------------------------------------------------" <<endl;
+                {
+                 gotoxy(55,3);
+                 cout<<"ELIMINAR UN VEHICULO";
+                 LINEA_EN_X(50,79,4,6);
+                 cout<<endl<<endl;
                 int idVehiculo;
                 cout<<"Ingrese el ID del vehiculo que desea eliminar: ";
                 cin>>idVehiculo;
+                bool tieneOperaciones=buscarVehiculoEnOperaciones(idVehiculo);
+                if (tieneOperaciones){
+                  cout<<"Ese ID está asociado a un vehiculo con operaciones hechas. Paselo a la papelera en su lugar.";
+                  break;
+                }
                 eliminarVehiculo(idVehiculo);
                 break;
+                }
         case OPCION_AGREGAR_STOCK_VEHICULOS:
-                cout<<"------------------------------------------------------------------------" <<endl;
-                cout<<"------------------AGREGAR STOCK A UN VEHICULO EXISTENTE-----------------"<<endl;
-                cout<<"------------------------------------------------------------------------" <<endl;
+                {
+                 gotoxy(45,3);
+                 cout<<"SUMAR/RESTAR STOCK A UN VEHICULO";
+                 LINEA_EN_X(40,81,4,6);
+                 cout<<endl<<endl;
                 int id,stock;
-                cout<<"Ingrese el ID del vehiculo para sumar stock: ";
+                cout<<"Ingrese el ID del vehiculo: ";
                 cin>>id;
-                cout<<endl<<"Ingrese el numero de stock que ingreso a la sucursal: ";
+                cout<<endl<<"Ingrese el numero de stock que ingreso a la sucursal. Si desea reducir el stock, ingrese la cantidad a reducir como numero negativo: ";
                 cin>>stock;
                 agregarStockVehiculo(id,stock);
                 break;
+                }
+        case OPCION_CAMBIAR_PAPELERA_VEHICULO:
+                {
+                 gotoxy(55,3);
+                 cout<<"CAMBIAR ESTADO DE VEHICULO";
+                 LINEA_EN_X(50,85,4,6);
+                 cout<<endl<<endl;
+                 int id,pos;
+                 cout<< "Ingrese el id del vehiculo: ";
+                 cin>>id;
+                 cout<<endl;
+                 pos=buscarPosVehiculo(id);
+                 if (pos==-1){
+                     cout<<"No se ha encontrado un vehiculo con ese ID"<<endl;
+                     break;
+                 }
+                 changeVehiculoPapelera(pos);
+                 break;
+                }
         case OPCION_SALIR_MENUVEHICULOS:
                 return 0;
                 break;
@@ -105,7 +155,7 @@ int menuVehiculos(){
 }
 
 
-void listarVehiculos(){
+void listarVehiculosDisponibles(){
      Vehiculo regVehiculo;
      int cantVehiculos= cantDeVehiculos();
      for(int i=0;i<cantVehiculos;i++){
@@ -114,12 +164,30 @@ void listarVehiculos(){
                 cout<<endl<< "No pudo leer el vehiculo";
                 return;
         }
-        regVehiculo.Mostrar();
-        cout<<endl;
+        if (regVehiculo.getEstado()==true){
+           regVehiculo.Mostrar();
+        cout<<endl<<endl;
+        }
      }
      return;
 }
 
+void listarVehiculosEnPapelera(){
+     Vehiculo regVehiculo;
+     int cantVehiculos= cantDeVehiculos();
+     for(int i=0;i<cantVehiculos;i++){
+        bool leyo=regVehiculo.leerDeDisco(i);
+        if (leyo==false) {
+                cout<<endl<< "No pudo leer el vehiculo";
+                return;
+        }
+        if (regVehiculo.getEstado()==false){
+           regVehiculo.Mostrar();
+        cout<<endl<<endl;
+        }
+     }
+     return;
+}
 
 void buscarVehiculo(){
      int idVehiculo,pos;
@@ -141,6 +209,48 @@ void buscarVehiculo(){
      cout<<"No se pudo abrir el archivo de vehiculos"<<endl;
 }
 
+
+
+void changeVehiculoPapelera(int pos){
+     Vehiculo regVehiculo;
+     bool leyo = regVehiculo.leerDeDisco(pos);
+     if (leyo == false) return;
+     if (regVehiculo.getEstado()==true){
+             cout<<"El vehiculo se encuentra disponible."<<endl;
+             cout<<"Esta seguro/a que desea enviar a la papelera al vehiculo "<< regVehiculo.getMarca();
+             cout<<" "<< regVehiculo.getModelo()<<"?";
+     }
+     else if (regVehiculo.getEstado()==false){
+             cout<<"El vehiculo se encuentra la papelera."<<endl;
+             cout<<"Esta seguro/a que desea restaurar de la papelera al vehiculo "<< regVehiculo.getMarca();
+             cout<<" "<< regVehiculo.getModelo()<<"?";
+     }
+     cout<<endl<<"1-Si 2-No: ";"\n";
+     int rta;
+     cin>>rta;
+     while (rta!=1 && rta!=2){
+       cout<<endl<<"Ingrese una opcion valida: ";
+       cin>>rta;
+     }
+     if(rta==2){
+       cout<<endl<<"Operacion cancelada.";
+       return;
+     }
+     if (regVehiculo.getEstado()==true){
+               regVehiculo.setEstado(false);
+               cout<<endl<<"El vehiculo se enviara a la papelera..."<<endl;
+     }
+     else if (regVehiculo.getEstado()==false){
+               regVehiculo.setEstado(true);
+               cout<<endl<<"El vehiculo se restaurara de la papelera..."<<endl;
+     }
+     bool escribio=regVehiculo.grabarEnDisco(pos);
+     if (escribio==false) {
+            cout<<"Proceso fallido";
+            return;
+     }
+     cout<<"Proceso exitoso";
+}
 
 void eliminarVehiculo(int idVehiculo){
      int tam = cantDeVehiculos(),pos;
@@ -206,7 +316,6 @@ void agregarStockVehiculo(int idVehiculo,int stock){
       regVehiculo.leerDeDisco(pos);
       stockActual=regVehiculo.getStock();
       aux+=stockActual;
-      if(aux>0 && regVehiculo.getEstado()==false) regVehiculo.setEstado(true);
       regVehiculo.setStock(aux);
       cout<<"Stock actualizado. Stock actual de " << regVehiculo.getMarca() << " "<<regVehiculo.getModelo()<<": "<<aux;
       regVehiculo.grabarEnDisco(pos);

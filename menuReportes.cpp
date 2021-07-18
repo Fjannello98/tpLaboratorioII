@@ -53,41 +53,55 @@ int menuReportes(){
       switch(opc){
         case OPCION_MOSTRAR_REPORTE_VENTAS:
                 {
-                 cout<<"------------------------------------------------------------------------" <<endl;
-                 cout<<"------------------VENTAS MES A MES (2019/2020/2021) -------------------- "<<endl;
-                 cout<<"------------------------------------------------------------------------" <<endl;
+                 gotoxy(50,3);
+                 cout<<"REPORTE DE VENTAS POR MES";
+                 LINEA_EN_X(45,80,4,7);
+                 gotoxy(45,5);
+                 cout<<"Anios de actividad: 2019, 2020, 2021";
+                 LINEA_EN_X(40,85,6,7);
+                 cout<<endl<<endl;
                  int anio;
                  cout<<"Ingrese el anio que desea ver: ";
                  cin>>anio;"\n";
                  int indexAnio = getIndexAnio(anio);
                  while (indexAnio==-1){
-                       cout<<"Error!!! Ingrese un anio de actividad de la concesionaria (2019/2020/2021): ";
+                       setBackgroundColor(RED);
+                       cout<<"Error!!!";
+                       setBackgroundColor(BLACK);
+                       cout<<" Ingrese un anio de actividad de la concesionaria (2019/2020/2021): ";
                        cin>>anio; "\n";
+                       indexAnio = getIndexAnio(anio);
                  }
                  ventasPorMes(anio, indexAnio);
                  break;
                 }
         case OPCION_RANKING_VENDEDORES:
                 {
-                 cout<<"------------------------------------------------------------------------" <<endl;
-                 cout<<"------------------RANKING MEJORES VENDEDORES -------------------------- "<<endl;
-                 cout<<"------------------------------------------------------------------------" <<endl;
+                 gotoxy(55,3);
+                 cout<<"RANKING VENDEDORES";
+                 LINEA_EN_X(45,80,4,7);
+                 gotoxy(45,5);
+                 cout<<endl<<endl;
                  mostrarRankingVendedores();
                 }
                 break;
         case OPCION_RANKING_VEHICULOS:
                 {
-                 cout<<"------------------------------------------------------------------------" <<endl;
-                 cout<<"------------------RANKING VEHICULOS MÁS VENDIDOS -----------------------"<<endl;
-                 cout<<"------------------------------------------------------------------------" <<endl;
+                 gotoxy(45,3);
+                 cout<<"RANKING VEHICULOS MAS VENDIDOS";
+                 LINEA_EN_X(40,80,4,7);
+                 gotoxy(45,5);
+                 cout<<endl<<endl;
                  mostrarRankingVehiculos();
                 }
                 break;
         case OPCION_ESTADISTICA_EDAD_Y_CREDITOS:
                 {
-                 cout<<"------------------------------------------------------------------------" <<endl;
-                 cout<<"------------------ESTADÍSTICAS DE CRÉDITOS SOLICITADOS------------------"<<endl;
-                 cout<<"------------------------------------------------------------------------" <<endl;
+                 gotoxy(45,3);
+                 cout<<"ESTADISTICA DE CREDITOS";
+                 LINEA_EN_X(40,80,4,7);
+                 gotoxy(45,5);
+                 cout<<endl<<endl;
                  mostrarEstadisticaCreditoEdad();
                 }
                 break;
@@ -109,7 +123,10 @@ void ventasPorMes(int anio,int indexAnio){
     int ventasMeses[12][3]={0};
     FILE *p;
     p=fopen("Operaciones.dat","rb");
-    if(p==NULL) return;
+    if(p==NULL){
+        cout<<endl<<"Error abriendo el detalle de ventas";
+        return;
+    }
     while(fread(&regOperacion,sizeof (Operacion),1,p)==1){
         if (regOperacion.getVentaCompleta()==true && regOperacion.getFechaDeFin().getAnio()== anio){
                huboVentas=true;
@@ -190,12 +207,14 @@ char* getNombreDeMes(int nroDeMes){
             return "Noviembre";
             case 12:
             return "Diciembre";
+            default:
+            return "Mes invalido";
 
         }
 }
 
 int getIndexAnio(int anio){
-    switch(anio){
+   switch(anio){
         case 2019:
         return 0;
         case 2020:
@@ -205,7 +224,8 @@ int getIndexAnio(int anio){
    }
    return -1;
 }
- float calculateCantMontos(int dn){
+
+float calculateCantMontos(int dn){
    Operacion regOperacion;
    int cantVentas=0;
    int pos=0;
@@ -221,9 +241,18 @@ int getIndexAnio(int anio){
 void mostrarMontosVendedores(Vendedor *vecV, int cant){
     Vendedor reg;
     int pos=0;
+    cout<<setw(6)<<"Pos";
+    cout<<setw(34)<<"Nombre de vendedor";
+    cout<<setw(35)<<"Cantidad de ventas";
+    cout<<setw(30)<<"Comisiones recaudadas";
+    cout<<endl;
     for(int i=0;i<cant;i++){
            float montos=calculateCantMontos(vecV[i].getDni());
-                   cout<<i+1<<"-"<<vecV[i].getNombre()<<" "<<vecV[i].getApellido()<<": "<< vecV[i].calculateCantVentasRealizadas()<<"   |   Monto Total Recaudado (Comisiones): "<< ((montos*vecV[i].getComisionPorcentaje())/ 100)<<endl;
+           cout<<setw(5)<<i+1;
+           cout<<setw(25)<<vecV[i].getNombre()<<" "<<vecV[i].getApellido();
+           cout<<setw(30)<< vecV[i].calculateCantVentasRealizadas();
+           cout<<setw(25)<<"$"<< ((montos*vecV[i].getComisionPorcentaje())/ 100);
+           cout<<endl;
 
     }
 }
@@ -238,7 +267,7 @@ void mostrarRankingVendedores(){
     Vendedor *vecVendedores;
     vecVendedores = new Vendedor[cant];
     fread(vecVendedores,sizeof (Vendedor),cant,p);
-    for (int i=0;i<cant;i++){
+    for (int i=0;i<cant;i++){ // Ordenando por cantidades
         for(int j=i+1;j<cant;j++){
             if (vecVendedores[i].calculateCantVentasRealizadas()<vecVendedores[j].calculateCantVentasRealizadas()){
                 Vendedor aux;
@@ -248,11 +277,17 @@ void mostrarRankingVendedores(){
             }
         }
     }
-/*    for (int k=0;k<cant;k++){
-        cout<<k+1<<"-"<<vecVendedores[k].getNombre()<<" "<<vecVendedores[k].getApellido()<<": "<< vecVendedores[k].calculateCantVentasRealizadas()<<endl;
-
-    }*/
-      mostrarMontosVendedores(vecVendedores,cant);
+    for (int i=0;i<cant;i++){ // Ordenando por comisiones
+        for(int j=i+1;j<cant;j++){
+            if (calculateCantMontos(vecVendedores[i].getDni())<calculateCantMontos(vecVendedores[i+1].getDni())){
+                Vendedor aux;
+                aux = vecVendedores[j];
+                vecVendedores[j]=vecVendedores[i];
+                vecVendedores[i]=aux;
+            }
+        }
+    }
+    mostrarMontosVendedores(vecVendedores,cant);
     fclose(p);
     delete vecVendedores;
 }
@@ -268,7 +303,7 @@ void mostrarRankingVehiculos(){
     Vehiculo *vecVehiculos;
     vecVehiculos = new Vehiculo[cant];
     fread(vecVehiculos,sizeof (Vehiculo),cant,p);
-    for (int i=0;i<cant;i++){
+    for (int i=0;i<cant;i++){ //Ordenando por cantidades
         for(int j=i+1;j<cant;j++){
             if (vecVehiculos[i].calculateCantVendidos()<vecVehiculos[j].calculateCantVendidos()){
                 Vehiculo aux;
@@ -278,8 +313,17 @@ void mostrarRankingVehiculos(){
             }
         }
     }
+    cout<<setw(3)<<"Pos";
+    cout<<setw(25)<<"Vehiculo";
+    cout<<setw(30)<<"Cantidad de ventas";
+    cout<<endl;
     for (int k=0;k<cant;k++){
-        cout<<k+1<<"-"<<vecVehiculos[k].getMarca()<<" "<<vecVehiculos[k].getModelo()<<": "<< vecVehiculos[k].calculateCantVendidos()<<endl;
+        cout<<setw(3)<<k+1;
+        cout<<setw(15)<<vecVehiculos[k].getMarca();
+        cout<<setw(10)<<vecVehiculos[k].getModelo();
+        cout<<setw(30)<<vecVehiculos[k].calculateCantVendidos();
+        cout<<endl;
+
     }
     fclose(p);
 }
@@ -309,13 +353,20 @@ void mostrarEstadisticaCreditoEdad(){
         }
     }
     fclose(p);
-    porcentajeJoven=float(ventasJoven)/float(cantConCredito);
-    porcentajeMedia=float(ventasMedia)/float(cantConCredito);
-    porcentajeMayor=float(ventasMayor)/float(cantConCredito);
-    cout<<"Porcentaje de ventas con crédito: "<<endl;
-    cout<<"Clientes jóvenes (entre 18 y 30 años inclusive): "<<porcentajeJoven << " ("<<ventasJoven<<" ventas)"<<endl;
-    cout<<"Clientes de edad media (entre 30 y 45 años inclusive): "<<porcentajeMedia << " ("<<ventasMedia<<" ventas)"<<endl;
-    cout<<"Clientes de mayores (más de 45 años): "<<porcentajeMayor << " ("<<ventasMayor<<" ventas)"<<endl;
+    porcentajeJoven=float(ventasJoven)*100/float(cantConCredito);
+    porcentajeMedia=float(ventasMedia)*100/float(cantConCredito);
+    porcentajeMayor=float(ventasMayor)*100/float(cantConCredito);
+    cout<<"La siguiente estadistica muestra las ventas de clientes que tuvieron que pedir un credito segun su edad."<<endl;
+    cout<<"El porcentaje es en base a la cantidad total de ventas en las que el cliente solicito un credito previamente."<<endl<<endl;
+    cout<<setw(56)<<"Clientes jovenes (entre 18 y 30 anios inclusive): ";
+    cout<<setw(5)<<porcentajeJoven << "%";
+    cout<<setw(15)<<ventasJoven<<" ventas"<<endl;
+    cout<<setw(56)<<"Clientes de edad media (entre 30 y 45 anios inclusive): ";
+    cout<<setw(5)<<porcentajeMedia << "%";
+    cout<<setw(15)<<ventasMedia<<" ventas"<<endl;
+    cout<<setw(56)<<"Clientes de mayores (mas de 45 anios): ";
+    cout<<setw(5)<<porcentajeMayor << "%";
+    cout<<setw(15)<<ventasMayor<<" ventas"<<endl;
 }
 
 #endif // MENUREPORTES_CPP_INCLUDED
