@@ -113,22 +113,34 @@ void Operacion::cargarEnArchivo(){
 
 
 void Operacion::Mostrar(){
+    Vehiculo regVehiculo;
+    Vendedor regVendedor;
+    Cliente regCliente;
+    int pos=buscarPosVehiculo(idVehiculo);
+    bool leyoVehiculo = regVehiculo.leerDeDisco(pos);
+    if (!leyoVehiculo || pos == -1){
+        cout<<endl<<"Error al mostrar operacion";
+        return;
+    }
+    pos=buscarPosVendedor(dniVendedor);
+    bool leyoVendedor = regVendedor.leerDeDisco(pos);
+    if (!leyoVendedor || pos == -1){
+        cout<<endl<<"Error al mostrar operacion";
+        return;
+    }
+    pos=buscarPosCliente(dniCliente);
+    bool leyoCliente = regCliente.leerDeDisco(pos);
+    if (!leyoCliente || pos == -1){
+        cout<<endl<<"Error al mostrar operacion";
+        return;
+    }
     cout<<endl<<"ID de la operacion: "<< idOperacion;
     cout<<endl<<"Vehículo: ";
-    Vehiculo regVehiculo;
-    int pos=buscarPosVehiculo(idVehiculo);
-    regVehiculo.leerDeDisco(pos);
     cout<<regVehiculo.getMarca()<<" "<<regVehiculo.getModelo();
     cout<<endl<<"Dominio del vehiculo: "<<dominioVehiculo;
     cout<<endl<<"Vendedor: ";
-    Vendedor regVendedor;
-    pos=buscarPosVendedor(dniVendedor);
-    regVendedor.leerDeDisco(pos);
     cout<<regVendedor.getNombre()<<" "<<regVendedor.getApellido();
     cout<<endl<<"Cliente: ";
-    Cliente regCliente;
-    pos=buscarPosCliente(dniCliente);
-    regCliente.leerDeDisco(pos);
     cout<<regCliente.getNombre()<<" "<<regCliente.getApellido();
     cout<<endl<<"Monto de la venta: $"<<monto ;
     cout<<endl<<"Ganancias del vendedor: $"<<gananciasAVendedor;

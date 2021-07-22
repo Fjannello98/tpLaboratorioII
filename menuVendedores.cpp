@@ -334,7 +334,10 @@ void actualizarSueldoVendedor(int dni){
      nuevoSueldo= regVendedor.getSueldoBruto()+(porcentajeAumento*regVendedor.getSueldoBruto()/float(100));
      regVendedor.setSueldoBruto(nuevoSueldo);
      bool escribio=regVendedor.grabarEnDisco(pos);
-     if (escribio==false) return;
+     if (escribio==false){
+       cout<<endl<<"Error al modificar sueldo";
+       return;
+     }
      cout<<endl<<"Ingresado con exito. Nuevo sueldo $"<<nuevoSueldo;
 
 };

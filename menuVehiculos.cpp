@@ -313,12 +313,20 @@ void agregarStockVehiculo(int idVehiculo,int stock){
             cout<<endl<<"El vehiculo no existe en el archivo.";
             return;
       }
-      regVehiculo.leerDeDisco(pos);
+      bool leyoVehiculo = regVehiculo.leerDeDisco(pos);
+      if (!leyoVehiculo){
+            cout<<endl<<"Error al buscar el vehiculo.";
+            return;
+      }
       stockActual=regVehiculo.getStock();
       aux+=stockActual;
       regVehiculo.setStock(aux);
+      bool escribio = regVehiculo.grabarEnDisco(pos);
+      if (!escribio){
+        cout<<endl<<"Error al actualizar el stock";
+        return;
+      }
       cout<<"Stock actualizado. Stock actual de " << regVehiculo.getMarca() << " "<<regVehiculo.getModelo()<<": "<<aux;
-      regVehiculo.grabarEnDisco(pos);
       return;
 }
 

@@ -372,7 +372,11 @@ int validateVehiculoExiste(int idVehiculo){
 int validateVehiculoStock(int idVehiculo){
     Vehiculo regVehiculo;
     int pos=buscarPosVehiculo(idVehiculo);
-    regVehiculo.leerDeDisco(pos);
+    bool leyoVehiculo = regVehiculo.leerDeDisco(pos);
+    if (!leyoVehiculo){
+         cout<<endl<<endl<<"Error al leer el vehiculo del disco.";
+         return 0;
+    }
     if(regVehiculo.getEstado()==false){
          cout<<endl<<endl<<"El vehiculo no se encuentra disponible.";
          cout<<endl<<"Esto puede deberse a que haya sido enviado a la papelera. Restaurelo en la seccion 'Gestionar vehiculos' antes de cargar esta operacion";
@@ -398,7 +402,11 @@ int validateClienteExiste(int dniCliente){
             regCliente.Cargar();
             return regCliente.getDni();
     }
-    regCliente.leerDeDisco(pos);
+    bool leyoCliente = regCliente.leerDeDisco(pos);
+    if (!leyoCliente){
+      cout<<endl<<endl<<"Error al leer cliente";
+      return 0;
+    }
     if (regCliente.getEstado()==false){
        cout<<"El cliente se encuentra en la papelera. Saque al cliente de la papelera en la seccion 'Gestionar Clientes' antes de sumarle operaciones.";
        return 0;
@@ -418,7 +426,11 @@ int validateVendedorExiste(int dniVendedor){
             regVendedor.Cargar();
             return regVendedor.getDni();
     }
-    regVendedor.leerDeDisco(pos);
+    bool leyoVendedor = regVendedor.leerDeDisco(pos);
+    if (!leyoVendedor){
+      cout<<endl<<endl<<"Error al leer vendedor";
+      return 0;
+    }
     if (regVendedor.getEstado()==false){
        cout<<"El vendedor se encuentra en la papelera. Saque al vendedor de la papelera en la seccion 'Gestionar Vendedores' antes de sumarle operaciones.";
        return 0;

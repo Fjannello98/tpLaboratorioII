@@ -136,7 +136,11 @@ void listarOperaciones(){
 
 void actualizarEstadoOperacion(int pos){
    Operacion regOperacion;
-   regOperacion.leerDeDisco(pos);
+   bool leyoOperacion = regOperacion.leerDeDisco(pos);
+   if (!leyoOperacion){
+    cout<<endl<<"Error al leer la operacion";
+    return;
+   }
    cout<<"La venta se encuentra en estado  ";
    if (regOperacion.getVentaCompleta()==true){
     cout<< "cerrado, iniciada el: ";
@@ -159,7 +163,11 @@ void actualizarEstadoOperacion(int pos){
    }
    regOperacion.setVentaCompleta(true);
    regOperacion.setFechadeFin(getFechaDeHoy());
-   regOperacion.grabarEnDisco(pos);
+   bool escribio=regOperacion.grabarEnDisco(pos);
+   if (!escribio){
+     cout<<endl<<"Error al cargar cambio en venta";
+     return;
+   }
    agregarStockVehiculo(regOperacion.getIdVehiculo(),-1);
    cout<<endl<<"Operacion actualizada";
 }

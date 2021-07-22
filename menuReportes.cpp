@@ -166,14 +166,26 @@ void mostrarVentasPorMes(int mes,int anio){
            cout<<setw(5)<<regOperacion.getIdOperacion();
            int pos;
            pos=buscarPosCliente(regOperacion.getDniCliente());
-           regCliente.leerDeDisco(pos);
+           bool leyoCliente=regCliente.leerDeDisco(pos);
+           if (!leyoCliente || pos==-1){
+            cout<<endl<<"Error al buscar operaciones";
+            return;
+           }
            cout<<setw(31)<<regCliente.getApellido();
            pos=buscarPosVendedor(regOperacion.getDniVendedor());
-           regVendedor.leerDeDisco(pos);
+           bool leyoVendedor = regVendedor.leerDeDisco(pos);
+           if (!leyoVendedor || pos==-1){
+            cout<<endl<<"Error al buscar operaciones";
+            return;
+           }
            cout<<setw(31)<<regVendedor.getApellido();
            cout<<setw(10)<<"$"<<regOperacion.getMonto();
            pos=buscarPosVehiculo(regOperacion.getIdVehiculo());
-           regVehiculo.leerDeDisco(pos);
+           bool leyoVehiculo = regVehiculo.leerDeDisco(pos);
+           if (!leyoVehiculo || pos==-1){
+            cout<<endl<<"Error al buscar operaciones";
+            return;
+           }
            cout<<setw(15)<<regVehiculo.getMarca();
            cout<<setw(20)<<regVehiculo.getModelo();
         }
@@ -343,7 +355,11 @@ void mostrarEstadisticaCreditoEdad(){
     }
     while (fread(&regOperacion,sizeof (Operacion),1,p)==1){
         int pos=buscarPosCliente(regOperacion.getDniCliente());
-        regCliente.leerDeDisco(pos);
+        bool leyoCliente= regCliente.leerDeDisco(pos);
+        if (!leyoCliente){
+            cout<<endl<<"Error buscando clientes de las operaciones";
+            return;
+        }
         if(regCliente.getPidioCredito()==true){
             cantConCredito++;
             int edad=regCliente.calculateEdad();

@@ -256,7 +256,7 @@
 	"validations.h"
 	"clsFecha.h"
 
-1626564104 source:c:\users\facundo\desktop\repositorio personal -tp final\clsoperacion.cpp
+1626907926 source:c:\users\facundo\desktop\repositorio personal -tp final\clsoperacion.cpp
 	<iostream>
 	<cstdlib>
 	<cstdio>
@@ -349,7 +349,7 @@
 	"clsVehiculo.h"
 	"clsOperacion.h"
 
-1626620782 source:c:\users\facundo\desktop\repositorio personal -tp final\menureportes.cpp
+1626908196 source:c:\users\facundo\desktop\repositorio personal -tp final\menureportes.cpp
 	<iostream>
 	<cstdlib>
 	<cstdio>
@@ -367,7 +367,7 @@
 
 1626401421 c:\users\facundo\desktop\repositorio personal -tp final\menureportes.h
 
-1626561623 source:c:\users\facundo\desktop\repositorio personal -tp final\menuvehiculos.cpp
+1626908276 source:c:\users\facundo\desktop\repositorio personal -tp final\menuvehiculos.cpp
 	<iostream>
 	<cstdlib>
 	<cstdio>
@@ -376,7 +376,7 @@
 	"funciones.h"
 	"menuVehiculos.h"
 
-1626565325 source:c:\users\facundo\desktop\repositorio personal -tp final\menuvendedores.cpp
+1626907577 source:c:\users\facundo\desktop\repositorio personal -tp final\menuvendedores.cpp
 	<iostream>
 	<cstdlib>
 	<cstdio>
@@ -405,7 +405,7 @@
 
 1626564760 c:\users\facundo\desktop\repositorio personal -tp final\menuventas.h
 
-1626618196 source:c:\users\facundo\desktop\repositorio personal -tp final\validations.cpp
+1626908488 source:c:\users\facundo\desktop\repositorio personal -tp final\validations.cpp
 	<iostream>
 	<cstdlib>
 	<cstdio>
@@ -419,7 +419,7 @@
 	"funciones.h"
 	"rlutil.h"
 
-1626565824 source:c:\users\facundo\desktop\repositorio personal -tp final\main.cpp
+1626908498 source:c:\users\facundo\desktop\repositorio personal -tp final\main.cpp
 	<iostream>
 	<cstdlib>
 	<cstdio>

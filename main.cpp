@@ -23,7 +23,6 @@ using namespace rlutil;
 #include "menuReportes.h"
 
 //TODO: Validaciones de CIN
-//TODO: Agregar una variable booleana a todos los leer de disco o grabar en disco
 
 
 enum MENU_MAIN{
